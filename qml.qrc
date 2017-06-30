@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>img/back.png</file>
+        <file>img/drawer.png</file>
+        <file>img/menu.png</file>
+        <file>ui/SettingsPage.qml</file>
+        <file>ui/ScrollablePage.qml</file>
+        <file>img/logo-smarthouse.png</file>
+        <file>ui/HeaderPage.qml</file>
+        <file>cpp/networkdiscovery.h</file>
+        <file>cpp/networkdiscovery.cpp</file>
+        <file>ui/NoConnectionPage.qml</file>
+        <file>img/smartphone.png</file>
+        <file>img/noconnection.png</file>
+        <file>img/smarthouseboard.png</file>
+        <file>ui/dialogs/DialogServerAddress.qml</file>
+        <file>ui/dialogs/DialogServerPort.qml</file>
+        <file>ui/dialogs/DialogTheme.qml</file>
+        <file>ui/dialogs/DialogColorApp.qml</file>
+        <file>ui/HomePage.qml</file>
+        <file>cpp/statusbar.cpp</file>
+        <file>cpp/statusbar.h</file>
+        <file>cpp/tcpclient.cpp</file>
+        <file>cpp/tcpclient.h</file>
+        <file>img/torch-off.png</file>
+        <file>img/torch-on.png</file>
+    </qresource>
+</RCC>
