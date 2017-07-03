@@ -70,6 +70,8 @@ ApplicationWindow {
     property color background_light: "#EFEFEF"
     property color color_smarthouse: (themeChoose == "Light")? "#DD4814" : "#ff821e"
 
+    property int size_nodes: checkSizeWidth()
+
     onThemeChooseChanged: {
         if (themeChoose == "Light")
             Material.theme = 0
@@ -108,7 +110,8 @@ ApplicationWindow {
         tcpClient.server_port = settings.server_port;
         tcpClient.startConnection();
 
-        checkConnection();
+        //checkConnection();
+        //checkSizeWidth();
     }
 
     onClosing: {
@@ -127,23 +130,31 @@ ApplicationWindow {
         onIsConnectChanged: {
             /*if(isConnect === true)
                 tcpClient.writeTcpData("Hello Server")*/
-            checkConnection();
+            //checkConnection();
         }
     }
 
     function checkConnection()
     {
-        if(isConnect == false)
-        {
+        if(isConnect == false) {
             stackView.push("qrc:/ui/NoConnectionPage.qml")
             header.visible = false
-        }
-        else
-        {
+        } else {
             stackView.pop()
             header.visible = true
         }
-
         console.log(tcpClient.error_conn.length)
+    }
+
+    function checkSizeWidth()
+    {
+        var size = 0
+        if (window.width <= 360) {
+            size = window.width - 25
+        } else {
+            console.log(window.width, (window.width / 180), Math.floor(window.width / 180))
+            size = (window.width / Math.floor(window.width / 180)) - 15
+        }
+        return size;
     }
 }

@@ -46,8 +46,8 @@ ScrollablePage {
         }
         GridView {
             id: gridNodesList
-            cellWidth: 160
-            cellHeight: cellWidth
+            cellWidth: size_nodes
+            cellHeight: 100
             anchors.fill: parent
             focus: true
             model: tcpClient.nodesList
@@ -64,6 +64,54 @@ ScrollablePage {
             //}
 
             delegate: Item {
+                id: item_content
+                width: gridNodesList.cellWidth
+                height: gridNodesList.cellHeight
+
+                Rectangle {
+                    id: rectangle_item
+                    anchors.fill: item_content
+                    color: background_items
+                    border.width: 1
+                    border.color: line_color
+                    radius: 3
+                }
+
+                DropShadow {
+                    anchors.fill: item_content
+                    horizontalOffset: 1
+                    verticalOffset: 1
+                    radius: 3.0
+                    samples: 17
+                    color: shadow_color
+                    source: rectangle_item
+                }
+
+                Image {
+                    id: icon
+                    width: 50
+                    height: 50
+                    source: "../img/lamp.png"
+                    anchors {
+                        top: parent.top
+                        topMargin: 10
+                        left: parent.left
+                        leftMargin: 10
+                    }
+                }
+
+                Text {
+                    text: model.modelData.name + ", " + size_nodes
+                    font.weight: Font.Light
+                    color: title_color
+                    anchors {
+                        bottom: parent.bottom
+                        bottomMargin: 5
+                        horizontalCenter: parent.horizontalCenter
+                    }
+                }
+
+                /*
                 id: item_content
                 width: gridNodesList.cellWidth - 10
                 height: gridNodesList.cellHeight - 10
@@ -124,6 +172,7 @@ ScrollablePage {
                 //    anchors.fill: parent
                 //    onClicked: parent.GridView.view.currentIndex = index
                 //}
+                */
             }
         }
     }

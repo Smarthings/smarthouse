@@ -26,5 +26,10 @@
         <file>cpp/tcpclient.h</file>
         <file>img/torch-off.png</file>
         <file>img/torch-on.png</file>
+        <file>img/lamp.png</file>
+        <file>ui/NodePage.qml</file>
+        <file>img/icons/lamp.svg</file>
+        <file>img/icons/Light/lamp50x50.png</file>
+        <file>img/icons/Dark/lamp50x50.png</file>
     </qresource>
 </RCC>

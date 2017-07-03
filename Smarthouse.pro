@@ -1,4 +1,4 @@
-QT += qml quick network quickcontrols2 core
+QT += qml quick network quickcontrols2 core svg xml
 android: QT += androidextras
 CONFIG += c++11
 

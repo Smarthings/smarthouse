@@ -87,6 +87,14 @@ Rectangle {
                         }
                     }
                     MenuItem {
+                        text: qsTr("Exemplo de Nodes")
+                        font.weight: Font.Light
+                        onTriggered: {
+                            stackView.push("qrc:/ui/NodePage.qml")
+                            title_page = qsTr("Nodes - Exemplos")
+                        }
+                    }
+                    MenuItem {
                         text: qsTr("Sobre / Ajuda")
                         font.weight: Font.Light
                         onTriggered: {}
