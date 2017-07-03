@@ -30,7 +30,7 @@ ScrollablePage {
                         id: rectangle_groupbox
                         width: parent.width
                         height: parent.height
-                        color: window.background_items
+                        color: 'transparent'
                         border.color: window.line_color
                         radius: 5.0
                     }
@@ -131,41 +131,58 @@ ScrollablePage {
                             width: 90
                             height: 90
                             anchors.right: parent.right
+                            text: control.checked ? "On" : "Off"
 
                             indicator: Rectangle {
-                                implicitWidth: 48
-                                implicitHeight: 26
+                                implicitWidth: 80
+                                implicitHeight: 80
                                 x: control.leftPadding
                                 y: parent.height / 2 - height / 2
-                                radius: 13
-                                color: control.checked ? "#17a81a" : "#ffffff"
-                                border.color: control.checked ? "#17a81a" : "#cccccc"
+                                radius: 3
+                                color: "transparent"
+                                border.color: Material.accent
+
+                                Component.onCompleted: {
+                                    console.log(control.leftPadding, parent.height);
+                                }
 
                                 Rectangle {
-                                    x: control.checked ? parent.width - width : 0
-                                    width: 26
-                                    height: 26
-                                    radius: 13
-                                    color: control.down ? "#cccccc" : "#ffffff"
-                                    border.color: control.checked ? (control.down ? "#17a81a" : "#21be2b") : "#999999"
+                                    id: switch_rectangle
+                                    x: 0
+                                    y: control.checked ? parent.height - 1 - height : 1
+                                    width: 80
+                                    height: 38
+                                    radius: 3
+                                    color: Material.accent
+                                    opacity: control.checked? 1.0 : 0.10
                                 }
+
+                                /*DropShadow {
+                                    anchors.fill: switch_rectangle
+                                    horizontalOffset: 1
+                                    verticalOffset: 1
+                                    radius: 3
+                                    samples: 10
+                                    color: window.shadow_color
+                                    source: switch_rectangle
+                                }*/
                             }
 
                             contentItem: Text {
                                 text: control.text
                                 font: control.font
-                                opacity: enabled ? 1.0 : 0.3
-                                color: control.down ? "#17a81a" : "#21be2b"
+                                color: Material.accent
+                                anchors.top: parent.top
+                                anchors.topMargin: (control.checked)? (switch_rectangle.height / 2) :
+                                                                      (switch_rectangle.height + switch_rectangle.height / 2)
                                 horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
-                                leftPadding: control.indicator.width + control.spacing
+                                z: 2
                             }
                         }
                     }
                 }
             }
         }
-
         /*Column {
             width: 200
             Switch {
@@ -181,8 +198,6 @@ ScrollablePage {
                 }
              }
         }*/
-
-
     }
 
 
