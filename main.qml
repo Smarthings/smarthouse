@@ -156,5 +156,5 @@ ApplicationWindow {
             size = (window.width / Math.floor(window.width / 180)) - 15
         }
         return size;
-    }
+    }   
 }

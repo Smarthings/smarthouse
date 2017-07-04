@@ -4,6 +4,7 @@ import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 //import QtQuick.Controls.Styles 1.4
+import "../fonts/"
 
 ScrollablePage {
     id: nodePage
@@ -74,6 +75,18 @@ ScrollablePage {
                             text: (node_range.position * 100).toFixed(0) + "%"
                             horizontalAlignment: Text.AlignRight
                             anchors.rightMargin: 10
+                        }
+
+                        FontLoader {
+                            id: awesome
+                            source: "../fonts/fontawesome-webfont.ttf"
+                        }
+
+                        Text {
+                            text: "\uf00d"
+                            font.family: awesome.name
+                            font.pixelSize: 32
+                            color: Material.accent
                         }
                     }
                 }

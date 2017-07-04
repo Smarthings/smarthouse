@@ -31,5 +31,6 @@
         <file>img/icons/lamp.svg</file>
         <file>img/icons/Light/lamp50x50.png</file>
         <file>img/icons/Dark/lamp50x50.png</file>
+        <file>fonts/fontawesome-webfont.ttf</file>
     </qresource>
 </RCC>
