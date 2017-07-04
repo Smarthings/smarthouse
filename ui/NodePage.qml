@@ -3,7 +3,7 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
-import QtQuick.Controls.Styles 1.4
+//import QtQuick.Controls.Styles 1.4
 
 ScrollablePage {
     id: nodePage
@@ -157,7 +157,7 @@ ScrollablePage {
                                     opacity: control.checked? 1.0 : 0.10
                                 }
 
-                                /*DropShadow {
+                                DropShadow {
                                     anchors.fill: switch_rectangle
                                     horizontalOffset: 1
                                     verticalOffset: 1
@@ -165,7 +165,7 @@ ScrollablePage {
                                     samples: 10
                                     color: window.shadow_color
                                     source: switch_rectangle
-                                }*/
+                                }
                             }
 
                             contentItem: Text {
@@ -183,21 +183,109 @@ ScrollablePage {
                 }
             }
         }
-        /*Column {
-            width: 200
-            Switch {
 
-                style: SwitchStyle {
-                    groove: Rectangle {
-                            implicitWidth: 100
-                            implicitHeight: 20
-                            radius: 9
-                            border.color: control.activeFocus ? "darkblue" : "gray"
-                            border.width: 1
+
+        Column {
+            width: 200
+
+            GroupBox {
+                id: node_group3
+                width: parent.width
+                title: "Node"
+
+                background: Item {
+                    id: item_groupbox3
+                    width: parent.width
+                    height: parent.height - (node_group3.topPadding) + 10
+                    y: node_group3.topPadding - node_group3.padding
+
+                    Rectangle {
+                        id: rectangle_groupbox3
+                        width: parent.width
+                        height: parent.height
+                        color: 'transparent'
+                        border.color: window.line_color
+                        radius: 5.0
+                    }
+
+                    DropShadow {
+                        anchors.fill: item_groupbox3
+                        horizontalOffset: 1
+                        verticalOffset: 1
+                        radius: 5.0
+                        samples: 10
+                        color: window.shadow_color
+                        source: rectangle_groupbox3
                     }
                 }
-             }
-        }*/
+
+                Row {
+                    id: row3
+                    anchors.fill: parent
+                    Image {
+                        id: node_icon3
+                        source: "../img/icons/"+settings.theme+"/lamp50x50.png"
+                    }
+
+                    Column {
+                        id: column3
+                        width: parent.width - node_icon3.width
+
+                        Dial {
+                            id: node_range3
+                            width: 90
+                            height: 90
+                            stepSize: 10.0
+                            value: 5.0
+                            to: 100.0
+                            anchors.right: parent.right
+                            anchors.rightMargin: 10
+
+                            background: Rectangle {
+                                x: node_range3.width / 2 - width / 2
+                                y: node_range3.height / 2 - height / 2
+                                width: Math.max(64, Math.min(node_range3.width, node_range3.height))
+                                height: width
+                                color: "transparent"
+                                radius: width / 2
+                                border.color: node_range3.pressed ? "#17a81a" : "#21be2b"
+                                opacity: node_range3.enabled ? 1 : 0.3
+                            }
+
+                            handle: Rectangle {
+                                id: handleItem
+                                x: node_range3.background.x + node_range3.background.width / 2 - width / 2
+                                y: node_range3.background.y + node_range3.background.height / 2 - height / 2
+                                width: 16
+                                height: 16
+                                color: node_range3.pressed ? "#17a81a" : "#21be2b"
+                                radius: 8
+                                antialiasing: true
+                                opacity: node_range3.enabled ? 1 : 0.3
+                                transform: [
+                                    Translate {
+                                        y: -Math.min(node_range3.background.width, node_range3.background.height) * 0.4 + handleItem.height / 2
+                                    },
+                                    Rotation {
+                                        angle: node_range3.angle
+                                        origin.x: handleItem.width / 2
+                                        origin.y: handleItem.height / 2
+                                    }
+                                ]
+                            }
+                        }
+                        Label {
+                            id: range_label3
+                            width: parent.width
+                            text: (node_range3.position * 100).toFixed(0) + "%"
+                            horizontalAlignment: Text.AlignRight
+                            anchors.rightMargin: 10
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
 
