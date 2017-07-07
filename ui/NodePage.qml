@@ -4,7 +4,6 @@ import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 //import QtQuick.Controls.Styles 1.4
-import "../fonts/"
 
 ScrollablePage {
     id: nodePage
@@ -50,9 +49,12 @@ ScrollablePage {
                 Row {
                     id: row
                     anchors.fill: parent
-                    Image {
+                    Text {
                         id: node_icon
-                        source: "../img/icons/"+settings.theme+"/lamp50x50.png"
+                        text: "\uf001"
+                        font.family: smarthouse.name
+                        font.pixelSize: 50
+                        color: Material.foreground
                     }
 
                     Column {
@@ -75,18 +77,6 @@ ScrollablePage {
                             text: (node_range.position * 100).toFixed(0) + "%"
                             horizontalAlignment: Text.AlignRight
                             anchors.rightMargin: 10
-                        }
-
-                        FontLoader {
-                            id: awesome
-                            source: "../fonts/fontawesome-webfont.ttf"
-                        }
-
-                        Text {
-                            text: "\uf00d"
-                            font.family: awesome.name
-                            font.pixelSize: 32
-                            color: Material.accent
                         }
                     }
                 }
@@ -130,9 +120,12 @@ ScrollablePage {
                 Row {
                     id: row2
                     anchors.fill: parent
-                    Image {
+                    Text {
                         id: node_icon2
-                        source: "../img/icons/"+settings.theme+"/lamp50x50.png"
+                        text: "\uf001"
+                        font.family: smarthouse.name
+                        font.pixelSize: 50
+                        color: Material.foreground
                     }
 
                     Column {
@@ -235,9 +228,12 @@ ScrollablePage {
                 Row {
                     id: row3
                     anchors.fill: parent
-                    Image {
+                    Text {
                         id: node_icon3
-                        source: "../img/icons/"+settings.theme+"/lamp50x50.png"
+                        text: "\uf001"
+                        font.family: smarthouse.name
+                        font.pixelSize: 50
+                        color: Material.foreground
                     }
 
                     Column {

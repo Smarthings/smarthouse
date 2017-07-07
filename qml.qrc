@@ -32,5 +32,7 @@
         <file>img/icons/Light/lamp50x50.png</file>
         <file>img/icons/Dark/lamp50x50.png</file>
         <file>fonts/fontawesome-webfont.ttf</file>
+        <file>fonts/Smarthouse.ttf</file>
+        <file>ui/IconsPage.qml</file>
     </qresource>
 </RCC>

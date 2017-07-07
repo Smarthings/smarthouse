@@ -9,6 +9,7 @@ import NetworkDiscovery 1.0
 import TcpClient 1.0
 
 import "ui/"
+import "fonts/"
 
 ApplicationWindow {
     id: window
@@ -103,6 +104,16 @@ ApplicationWindow {
 
     TcpClient {
         id: tcpClient
+    }
+
+    FontLoader {
+        id: smarthouse
+        source: "./fonts/Smarthouse.ttf"
+    }
+
+    FontLoader {
+        id: smarthouseFont
+        source: "./fonts/Smarthouse.ttf"
     }
 
     Component.onCompleted: {

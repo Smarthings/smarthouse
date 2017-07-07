@@ -95,6 +95,14 @@ Rectangle {
                         }
                     }
                     MenuItem {
+                        text: qsTr("Lista de Ícones")
+                        font.weight: Font.Light
+                        onTriggered: {
+                            stackView.push("qrc:/ui/IconsPage.qml")
+                            title_page = qsTr("Ícones - Exemplos")
+                        }
+                    }
+                    MenuItem {
                         text: qsTr("Sobre / Ajuda")
                         font.weight: Font.Light
                         onTriggered: {}

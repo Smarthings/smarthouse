@@ -184,7 +184,7 @@ ScrollablePage {
     function completeZero(str) {
         while (str.length < 3)
             str = "0" + str;
-        return str;
+        return str.toUtf8();
     }
 }
 
