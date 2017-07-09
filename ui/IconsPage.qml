@@ -13,6 +13,7 @@ ScrollablePage {
         width: parent.width
 
         Item {
+            id: slider_item
             width: parent.width
             height: 50
             Slider {
@@ -26,7 +27,7 @@ ScrollablePage {
 
         Item {
             width: parent.width
-            height: 50
+            height: window.height - slider_item.height
 
             GridView {
                 id: gridview
@@ -64,7 +65,7 @@ ScrollablePage {
                     ListElement { name: "\uf008" }
                     ListElement { name: "\uf009" }
                     ListElement { name: "\uf010" }
-                    ListElement { name: "\uf012" }
+                    ListElement { name: "\uf011" }
                     ListElement { name: "\uf012" }
                     ListElement { name: "\uf013" }
                     ListElement { name: "\uf014" }
@@ -72,6 +73,9 @@ ScrollablePage {
                     ListElement { name: "\uf016" }
                     ListElement { name: "\uf017" }
                     ListElement { name: "\uf018" }
+                    ListElement { name: "\uf019" }
+                    ListElement { name: "\uf020" }
+                    ListElement { name: "\uf021" }
 
                 }
             }

@@ -4,6 +4,7 @@ import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 import "./dialogs"
+import "./components"
 
 ScrollablePage {
     id: pageNoConnection
@@ -22,23 +23,32 @@ ScrollablePage {
             width: parent.width
             anchors.horizontalCenter: parent.horizontalCenter
 
-            Image {
+            SmartIcon {
                 id: image_smartphone
-                source: "../img/smartphone.png"
-                width: 96
-                height: 96
+                iconName: "smartphone"
+                iconSize: 96
             }
-            Image {
+
+            SmartIcon {
+                id: image_connectionless
+                iconName: "alert"
+                iconSize: 48
+                itemWidth: 96
+                itemHeight: 96
+                iconColor: Material.color(Material.Red)
+            }
+
+            /*Image {
                 id: image_connectionless
                 source: "../img/noconnection.png"
                 width: 96
                 height: 96
-            }
-            Image {
+            }*/
+
+            SmartIcon {
                 id: image_smarthouse
-                source: "../img/smarthouseboard.png"
-                width: 96
-                height: 96
+                iconName: "home"
+                iconSize: 96
             }
         }
 

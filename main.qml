@@ -9,6 +9,7 @@ import NetworkDiscovery 1.0
 import TcpClient 1.0
 
 import "ui/"
+import "ui/components/"
 import "fonts/"
 
 ApplicationWindow {

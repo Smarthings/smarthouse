@@ -1,6 +1,9 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import QtQuick.Controls.Material 2.0
+
+import "./components/"
 
 Rectangle {
     id: root
@@ -30,13 +33,25 @@ Rectangle {
 
             visible: (stackView.depth > 1)? false : true
 
-            Image {
+            Item {
                 id: logo_img
-                width: 50
-                height: 50
-                source: "../img/logo-smarthouse.png"
-                anchors.topMargin: 5
-                anchors.top: parent.top
+                width: 60
+                height: parent.height
+
+                Rectangle {
+                    width: 50
+                    height: 50
+                    radius: 60
+                    anchors.centerIn: parent
+
+                    SmartIcon {
+                        iconName: "home"
+                        iconSize: 40
+                        iconColor: Material.accent
+                        itemWidth: parent.width
+                        itemHeight: parent.height
+                    }
+                }
             }
 
             Text {
@@ -54,20 +69,27 @@ Rectangle {
                 id: drawer_button
                 width: 50
                 height: parent.height
-                contentItem: Image {
-                    horizontalAlignment: Image.AlignHCenter
-                    verticalAlignment: Image.AlignVCenter
-                    source: "../img/drawer.png"
-                    width: 32
-                    height: 32
-                }
+                contentItem: Item {
+                    width: parent.width
+                    height: parent.height
 
+                    anchors.centerIn: parent
+
+                    SmartIcon {
+                        iconName: "menu"
+                        iconSize: 24
+                        iconColor: "#ffffff"
+                        itemWidth: parent.width
+                        itemHeight: parent.height
+                    }
+                }
                 onClicked:
                     menu_item.open()
 
                 Menu {
                     id: menu_item
                     x: parent.width - width
+                    y: 20
                     transformOrigin: Menu.TopRight
 
                     MenuItem {
@@ -123,13 +145,18 @@ Rectangle {
                 id: button_return
                 width: 50
                 height: parent.height
-                contentItem: Image {
-                    //fillMode: Image.Pad
-                    horizontalAlignment: Image.AlignHCenter
-                    verticalAlignment: Image.AlignVCenter
-                    source: "../img/back.png"
-                    width: 32
-                    height: 32
+                contentItem: Item {
+                    width: parent.width
+                    height: parent.height
+
+                    anchors.centerIn: parent
+
+                    SmartIcon {
+                        iconName: "back"
+                        iconColor: "#ffffff"
+                        itemWidth: parent.width
+                        itemHeight: parent.height
+                    }
                 }
 
                 onClicked:

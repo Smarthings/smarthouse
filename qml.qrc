@@ -34,5 +34,6 @@
         <file>fonts/fontawesome-webfont.ttf</file>
         <file>fonts/Smarthouse.ttf</file>
         <file>ui/IconsPage.qml</file>
+        <file>ui/components/SmartIcon.qml</file>
     </qresource>
 </RCC>

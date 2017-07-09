@@ -5,6 +5,8 @@ import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 //import QtQuick.Controls.Styles 1.4
 
+import "./components/"
+
 ScrollablePage {
     id: nodePage
 
@@ -49,12 +51,11 @@ ScrollablePage {
                 Row {
                     id: row
                     anchors.fill: parent
-                    Text {
+
+                    SmartIcon {
                         id: node_icon
-                        text: "\uf001"
-                        font.family: smarthouse.name
-                        font.pixelSize: 50
-                        color: Material.foreground
+                        iconName: "lamp"
+                        iconSize:  50
                     }
 
                     Column {
@@ -120,12 +121,10 @@ ScrollablePage {
                 Row {
                     id: row2
                     anchors.fill: parent
-                    Text {
+                    SmartIcon {
                         id: node_icon2
-                        text: "\uf001"
-                        font.family: smarthouse.name
-                        font.pixelSize: 50
-                        color: Material.foreground
+                        iconName: "lamp"
+                        iconSize: 50
                     }
 
                     Column {
@@ -228,12 +227,10 @@ ScrollablePage {
                 Row {
                     id: row3
                     anchors.fill: parent
-                    Text {
+                    SmartIcon {
                         id: node_icon3
-                        text: "\uf001"
-                        font.family: smarthouse.name
-                        font.pixelSize: 50
-                        color: Material.foreground
+                        iconName: "lamp"
+                        iconSize: 50
                     }
 
                     Column {
