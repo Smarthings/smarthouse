@@ -161,10 +161,11 @@ ApplicationWindow {
     function checkSizeWidth()
     {
         var size = 0
-        if (window.width <= 360) {
+        if (window.width <= 400) {
             size = window.width - 25
+        } else if (window.width <= 640) {
+            size = window.width / 2 - 25
         } else {
-            console.log(window.width, (window.width / 180), Math.floor(window.width / 180))
             size = (window.width / Math.floor(window.width / 180)) - 15
         }
         return size;

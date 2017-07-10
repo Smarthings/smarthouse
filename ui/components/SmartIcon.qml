@@ -18,8 +18,6 @@ Item {
     width: (itemWidth > 0)? itemWidth : iconSize
     height: (itemHeight > 0)? itemHeight : iconSize
 
-    Component.onCompleted: console.log(iconColor);
-
     property variant listFont: {
         "home" : "\uf000",
         "lamp" : "\uf001",

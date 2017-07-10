@@ -33,18 +33,18 @@ ScrollablePage {
 
         ListModel {
             id: appModel
-            ListElement { name: "Node 1"; status_node: 0; type_node: 00; }
-            ListElement { name: "Node 2"; status_node: 0; type_node: 01; }
-            ListElement { name: "Node 3"; status_node: 0; type_node: 01; }
-            ListElement { name: "Node 4"; status_node: 0; type_node: 00; }
-            ListElement { name: "Node 5"; status_node: 0; type_node: 00; }
-            ListElement { name: "Node 6"; status_node: 0; type_node: 01; }
-            ListElement { name: "Node 7"; status_node: 0; type_node: 00; }
-            ListElement { name: "Node 8"; status_node: 0; type_node: 01; }
-            ListElement { name: "Node 9"; status_node: 0; type_node: 00; }
-            ListElement { name: "Node 10"; status_node: 0; type_node: 00; }
-            ListElement { name: "Node 11"; status_node: 0; type_node: 01; }
-            ListElement { name: "Node 12"; status_node: 0; type_node: 01; }
+            ListElement { name: "Node 1"; status_node: 0; icon_type: "lamp"; type_node: 00; }
+            ListElement { name: "Node 2"; status_node: 0; icon_type: "lamp"; type_node: 01; }
+            ListElement { name: "Node 3"; status_node: 0; icon_type: "fan"; type_node: 01; }
+            ListElement { name: "Node 4"; status_node: 0; icon_type: "lamp"; type_node: 00; }
+            ListElement { name: "Node 5"; status_node: 0; icon_type: "lamp"; type_node: 00; }
+            ListElement { name: "Node 6"; status_node: 0; icon_type: "lamp"; type_node: 01; }
+            ListElement { name: "Node 7"; status_node: 0; icon_type: "lamp"; type_node: 00; }
+            ListElement { name: "Node 8"; status_node: 0; icon_type: "fan"; type_node: 01; }
+            ListElement { name: "Node 9"; status_node: 0; icon_type: "lamp"; type_node: 00; }
+            ListElement { name: "Node 10"; status_node: 0; icon_type: "lamp"; type_node: 00; }
+            ListElement { name: "Node 11"; status_node: 0; icon_type: "fan"; type_node: 01; }
+            ListElement { name: "Node 12"; status_node: 0; icon_type: "fan"; type_node: 01; }
         }
 
         GridView {
@@ -55,57 +55,6 @@ ScrollablePage {
             focus: true
             //model: tcpClient.nodesList
             model: appModel
-
-            /*delegate: Item {
-                id: item_content
-                width: gridNodesList.cellWidth
-                height: gridNodesList.cellHeight
-
-                Rectangle {
-                    id: rectangle_item
-                    anchors.fill: item_content
-                    color: background_items
-                    border.width: 1
-                    border.color: line_color
-                    radius: 3
-                }
-
-                DropShadow {
-                    anchors.fill: item_content
-                    horizontalOffset: 1
-                    verticalOffset: 1
-                    radius: 3.0
-                    samples: 17
-                    color: shadow_color
-                    source: rectangle_item
-                }
-
-                Image {
-                    id: icon
-                    width: 50
-                    height: 50
-                    source: "../img/lamp.png"
-                    anchors {
-                        top: parent.top
-                        topMargin: 10
-                        left: parent.left
-                        leftMargin: 10
-                    }
-                }
-
-                Text {
-                    //text: model.modelData.name + ", " + size_nodes
-                    text: name
-                    font.weight: Font.Light
-                    color: title_color
-                    anchors {
-                        bottom: parent.bottom
-                        bottomMargin: 5
-                        horizontalCenter: parent.horizontalCenter
-                    }
-                }
-            }
-            */
 
             delegate: Item {
                 id: item_content
@@ -148,13 +97,17 @@ ScrollablePage {
                             }
                         }
 
+                        Component.onCompleted: {
+                            console.log(groupbox_node.height);
+                        }
+
                         Row {
                             id: row_node
                             anchors.fill: parent
 
                             SmartIcon {
                                 id: smarticon_node
-                                iconName: "lamp"
+                                iconName: (icon_type == "")? "lamp": icon_type
                                 iconSize: 50
                             }
 
@@ -167,7 +120,7 @@ ScrollablePage {
                                 Switch {
                                     id: switch_node
                                     width: 90
-                                    height: 90
+                                    height: 110
                                     anchors.right: parent.right
                                     text: switch_node.checked ? "On" : "Off"
 
@@ -224,9 +177,9 @@ ScrollablePage {
                                 Label {
                                     id: label_range
                                     width: parent.width
+                                    height: 20
                                     text: (dial_range.position * 100).toFixed(0) + "%"
                                     horizontalAlignment: Text.AlignRight
-                                    anchors.rightMargin: 10
                                 }
 
                                 Dial {
@@ -237,7 +190,6 @@ ScrollablePage {
                                     value: 0
                                     to: 100
                                     anchors.right: parent.right
-                                    anchors.rightMargin: 10
                                 }
                             }
                         }
