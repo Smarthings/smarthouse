@@ -1,3 +1,4 @@
 .DS_Store
 img/.DS_Store
-*.pro.user*
+*.pro.user
+Smarthouse.pro.user*
