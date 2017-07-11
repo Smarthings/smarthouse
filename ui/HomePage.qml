@@ -33,17 +33,17 @@ ScrollablePage {
 
         ListModel {
             id: appModel
-            ListElement { name: "Node 1"; status_node: 0; icon_type: "lamp"; type_node: 00; }
+            ListElement { name: "Node 1"; status_node: 0; icon_type: ""; type_node: 00; }
             ListElement { name: "Node 2"; status_node: 0; icon_type: "lamp"; type_node: 01; }
             ListElement { name: "Node 3"; status_node: 0; icon_type: "fan"; type_node: 01; }
             ListElement { name: "Node 4"; status_node: 0; icon_type: "lamp"; type_node: 00; }
             ListElement { name: "Node 5"; status_node: 0; icon_type: "lamp"; type_node: 00; }
-            ListElement { name: "Node 6"; status_node: 0; icon_type: "lamp"; type_node: 01; }
+            ListElement { name: "Node 6"; status_node: 0; icon_type: ""; type_node: 01; }
             ListElement { name: "Node 7"; status_node: 0; icon_type: "lamp"; type_node: 00; }
             ListElement { name: "Node 8"; status_node: 0; icon_type: "fan"; type_node: 01; }
             ListElement { name: "Node 9"; status_node: 0; icon_type: "lamp"; type_node: 00; }
             ListElement { name: "Node 10"; status_node: 0; icon_type: "lamp"; type_node: 00; }
-            ListElement { name: "Node 11"; status_node: 0; icon_type: "fan"; type_node: 01; }
+            ListElement { name: "Node 11"; status_node: 0; icon_type: ""; type_node: 01; }
             ListElement { name: "Node 12"; status_node: 0; icon_type: "fan"; type_node: 01; }
         }
 
@@ -107,7 +107,7 @@ ScrollablePage {
 
                             SmartIcon {
                                 id: smarticon_node
-                                iconName: (icon_type == "")? "lamp": icon_type
+                                iconName: (icon_type == "")? "microchip": icon_type
                                 iconSize: 50
                             }
 

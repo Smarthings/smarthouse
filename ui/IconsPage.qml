@@ -76,6 +76,7 @@ ScrollablePage {
                     ListElement { name: "\uf019" }
                     ListElement { name: "\uf020" }
                     ListElement { name: "\uf021" }
+                    ListElement { name: "\uf022" }
 
                 }
             }

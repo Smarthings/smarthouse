@@ -41,6 +41,7 @@ Item {
         "fan" : "\uf019",
         "ceiling_fan" : "\uf020",
         "alert" : "\uf021",
+        "microchip" : "\uf022",
     }
 
     FontLoader {
