@@ -151,12 +151,39 @@ ScrollablePage {
                                         Rectangle {
                                             id: rectangle_switch
                                             x: 0
-                                            y: switch_node.checked? parent.height - 1 - height: 1
+                                            state: switch_node.checked? "on": "off"
+                                            //y: switch_node.checked? parent.height - 1 - height: 1
                                             width: 80
                                             height: 38
                                             radius: 3
                                             color: Material.accent
                                             opacity: switch_node.checked? 1.0 : 0.10
+
+                                            states: [
+                                                State {
+                                                    name: "on"
+                                                    PropertyChanges {
+                                                        target: rectangle_switch
+                                                        y: parent.height /2 + 1
+                                                    }
+                                                },
+                                                State {
+                                                    name: "off"
+                                                    PropertyChanges {
+                                                        target: rectangle_switch
+                                                        y: 1
+                                                    }
+                                                }
+                                            ]
+                                            transitions: [
+                                                Transition {
+                                                    NumberAnimation {
+                                                        properties: "y"
+                                                        easing.type: Easing.InOutQuad
+                                                        duration: 200
+                                                    }
+                                                }
+                                            ]
                                         }
 
                                         DropShadow {
@@ -201,10 +228,96 @@ ScrollablePage {
                                     id: dial_range
                                     width: 90
                                     height: 90
+                                    anchors.right: parent.right
+
                                     stepSize: 10
                                     value: 0
                                     to: 100
-                                    anchors.right: parent.right
+
+                                    onAngleChanged: {
+                                        console.log(dial_range.angle)
+                                    }
+
+                                    background: Rectangle {
+                                        id: rectangle_background
+
+                                        x: dial_range.width /2 - width /2
+                                        y: dial_range.height /2 - height /2
+                                        width: Math.max(64, Math.min(dial_range.width, dial_range.height))
+                                        height: width
+
+                                        color: "transparent"
+                                        radius: width /2
+                                        border.color: Material.accent
+                                        opacity: 0.8
+
+                                        states: [
+                                            State {
+                                                name: "pressed"
+                                                when: dial_range.pressed
+                                                PropertyChanges {
+                                                    target: rectangle_background
+                                                    opacity: 1.0
+                                                }
+                                                PropertyChanges {
+                                                    target: rectangle_background
+                                                    color: Material.accent
+                                                }
+                                            }
+
+                                        ]
+                                        transitions: [
+                                            Transition {
+                                                ColorAnimation {
+                                                    duration: 200
+                                                }
+                                                NumberAnimation {
+                                                    properties: "opacity"
+                                                    easing.type: Easing.InOutQuad
+                                                    duration: 200
+                                                }
+                                            }
+                                        ]
+                                    }
+
+                                    handle: Rectangle {
+                                        id: rectangle_handle
+                                        x: dial_range.background.x + dial_range.background.width /2 - width /2
+                                        y: dial_range.background.y + dial_range.background.height /2 - height /2
+                                        width: 16
+                                        height: 16
+                                        radius: 8
+                                        color: Material.accent
+                                        antialiasing: true
+                                        transform: [
+                                            Translate {
+                                                y: -Math.min(dial_range.background.width, dial_range.background.height) *0.4 + rectangle_handle.height /2
+                                            },
+                                            Rotation {
+                                                angle: dial_range.angle
+                                                origin.x: rectangle_handle.width /2
+                                                origin.y: rectangle_handle.height /2
+                                            }
+                                        ]
+
+                                        states: [
+                                            State {
+                                                when: dial_range.pressed
+                                                PropertyChanges {
+                                                    target: rectangle_handle
+                                                    color: Material.background
+                                                }
+                                            }
+                                        ]
+
+                                        transitions: [
+                                            Transition {
+                                                ColorAnimation {
+                                                    duration: 500
+                                                }
+                                            }
+                                        ]
+                                    }
                                 }
                             }
                         }
