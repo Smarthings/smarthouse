@@ -8,7 +8,6 @@
         <file>cpp/networkdiscovery.h</file>
         <file>cpp/networkdiscovery.cpp</file>
         <file>ui/NoConnectionPage.qml</file>
-        <file>img/smarthouseboard.png</file>
         <file>ui/dialogs/DialogServerAddress.qml</file>
         <file>ui/dialogs/DialogServerPort.qml</file>
         <file>ui/dialogs/DialogTheme.qml</file>
@@ -19,9 +18,6 @@
         <file>cpp/tcpclient.cpp</file>
         <file>cpp/tcpclient.h</file>
         <file>ui/NodePage.qml</file>
-        <file>img/icons/lamp.svg</file>
-        <file>img/icons/Light/lamp50x50.png</file>
-        <file>img/icons/Dark/lamp50x50.png</file>
         <file>fonts/fontawesome-webfont.ttf</file>
         <file>fonts/Smarthouse.ttf</file>
         <file>ui/IconsPage.qml</file>

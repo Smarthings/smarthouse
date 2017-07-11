@@ -21,19 +21,19 @@ ApplicationWindow {
 
     property color dark_background:         "#111111"
     property color dark_text_primary:       "#ff821e"
-    property color dark_background_items:   "#0f0f0f"
+    property color dark_background_items:   "#101010"
     property color dark_text_base:          "#cccccc"
     property color dark_title_base:         "#ffffff"
-    property color dark_shadow_itens:       "#1e1e1e" //101010
-    property color dark_line_itens:         "#000000"
+    property color dark_shadow_itens:       "#000000" //101010
+    property color dark_line_itens:         "#202020"
 
     property color light_background:        "#f9f9f9"
     property color light_text_primary:      "#dd4814"
     property color light_background_items:  "#f9f9f9"
     property color light_text_base:         "#333333"
     property color light_title_base:        "#222222"
-    property color light_shadow_itens:      "#dddddd"
-    property color light_line_itens:        "#f0f0f0"
+    property color light_shadow_itens:      "#aaaaaa"
+    property color light_line_itens:        "#dddddd"
 
     property bool isConnect: tcpClient.status_conn
     property int numberMessage: tcpClient.error_conn.length
@@ -155,19 +155,13 @@ ApplicationWindow {
             stackView.pop()
             header.visible = true
         }
-        console.log(tcpClient.error_conn.length)
+        //console.log(tcpClient.error_conn.length)
     }
 
     function checkSizeWidth()
     {
-        var size = 0
-        if (window.width <= 400) {
-            size = window.width - 25
-        } else if (window.width <= 640) {
-            size = window.width / 2 - 25
-        } else {
-            size = (window.width / Math.floor(window.width / 180)) - 15
-        }
+        var minwidth = (window.width <= 250)? window.width : 250;
+        var size = (Math.floor((window.width / Math.floor(width / minwidth))) - 15);
         return size;
     }   
 }

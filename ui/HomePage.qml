@@ -1,4 +1,4 @@
-import QtQuick 2.6
+﻿import QtQuick 2.6
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.3
@@ -58,7 +58,7 @@ ScrollablePage {
 
             delegate: Item {
                 id: item_content
-                width: gridNodesList.cellWidth
+                width: gridNodesList.cellWidth - 5
                 height: gridNodesList.cellHeight
 
                 Item {
@@ -68,7 +68,6 @@ ScrollablePage {
                     GroupBox {
                         id: groupbox_node
                         width: parent.width - 5
-                        anchors.centerIn: parent
                         title: name
 
                         background: Item {
@@ -81,7 +80,7 @@ ScrollablePage {
                                 id: groupbox_rectangle
                                 width: parent.width
                                 height: parent.height
-                                color: 'transparent'
+                                color: background_items
                                 border.color: line_color
                                 radius: 3
                             }
@@ -97,18 +96,34 @@ ScrollablePage {
                             }
                         }
 
-                        Component.onCompleted: {
-                            console.log(groupbox_node.height);
-                        }
-
                         Row {
                             id: row_node
                             anchors.fill: parent
 
-                            SmartIcon {
-                                id: smarticon_node
-                                iconName: (icon_type == "")? "microchip": icon_type
-                                iconSize: 50
+                            Column {
+                                width: parent.width - column_switch.width
+                                height: parent.height
+
+                                SmartIcon {
+                                    id: smarticon_node
+                                    iconName: (icon_type == "")? "microchip": icon_type
+                                    iconSize: 50
+                                }
+
+                                Item {
+                                    width: parent.width
+                                    height: row_node.height - smarticon_node.height
+                                    SmartIcon {
+                                        id: smarticon_alarm
+                                        iconName: "alarm"
+                                        anchors {
+                                            right: parent.right
+                                            left: parent.left
+                                            bottom: parent.bottom
+                                        }
+                                        button: true
+                                    }
+                                }
                             }
 
                             Column {

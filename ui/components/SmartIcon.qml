@@ -14,6 +14,7 @@ Item {
     property string unicode: ""
     property int itemWidth: 0
     property int itemHeight: 0
+    property bool button: false
 
     width: (itemWidth > 0)? itemWidth : iconSize
     height: (itemHeight > 0)? itemHeight : iconSize
@@ -57,5 +58,61 @@ Item {
         color: iconColor
 
         anchors.centerIn: parent
+
+        states: [
+            State {
+                name: "mouse-clicked"
+                when: mousearea_icon.containsPress
+                PropertyChanges {
+                    target: rectangle_mousearea
+                    opacity: 0.2
+                    scale: 1.5
+                }
+                PropertyChanges {
+                    target: icon
+                    scale: 1.2
+                }
+            },
+            State {
+                name: "mouse-over"
+                when: mousearea_icon.containsMouse
+                PropertyChanges {
+                    target: rectangle_mousearea
+                    opacity: 0.1
+                    scale: 1.5
+                }
+            }
+        ]
+
+        transitions: [
+            Transition {
+                NumberAnimation {
+                    properties: "scale, opacity"
+                    easing.type: Easing.InOutQuad
+                    duration: 100
+                }
+            }
+        ]
+
+        MouseArea {
+            id: mousearea_icon
+            anchors.fill: parent
+            hoverEnabled: true
+            enabled: button
+
+            Rectangle {
+                id: rectangle_mousearea
+                anchors.fill: parent
+                radius: parent.width
+                opacity: 0
+                color: text_color
+            }
+            states: [
+
+            ]
+            onClicked: {
+                icon.state = "mouse-clicked"
+            }
+        }
     }
 }
