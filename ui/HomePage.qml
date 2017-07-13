@@ -49,6 +49,79 @@ ScrollablePage {
 
         GridView {
             id: gridNodesList
+            cellWidth: 110
+            cellHeight: 110
+            anchors.fill: parent
+            focus: true
+
+            model: appModel
+
+            delegate: Item {
+                id: item_content
+                width: gridNodesList.cellWidth -10
+                height: gridNodesList.cellHeight -10
+
+                Rectangle {
+                    id: rectangle_box
+                    anchors.fill: parent
+                    color: background_items
+                    radius: 10
+                    border.color: line_color
+
+                    Column {
+                        id: column_item
+                        anchors.fill: parent
+
+                        Item {
+                            id: item_block
+                            width: parent.width
+                            height: parent.height /2
+
+                            SmartIcon {
+                                id: smarticon
+                                iconName: (icon_type == "")? "microchip": icon_type
+                                iconSize: Math.min(item_block.width, item_block.height)
+                                itemWidth: parent.width
+                                itemHeight: parent.height
+
+                                anchors.top: parent.top
+                                anchors.topMargin: 5
+                            }
+                        }
+
+                        Item {
+                            id: item_text
+                            width: parent.width
+                            height: parent.height /2
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: name
+                                color: text_color
+                            }
+                        }
+                    }
+                }
+                FastBlur {
+                    anchors.fill: rectangle_box
+                    source: rectangle_box
+                    radius: 32
+                }
+                DropShadow {
+                    anchors.fill: rectangle_box
+                    horizontalOffset: 2
+                    verticalOffset: 2
+                    radius: 2
+                    samples: 1
+                    color: shadow_color
+                    source: rectangle_box
+                }
+            }
+        }
+
+        /*
+        GridView {
+            id: gridNodesList
             cellWidth: size_nodes
             cellHeight: 160
             anchors.fill: parent
@@ -325,6 +398,7 @@ ScrollablePage {
                 }
             }
         }
+        */
     }
 
     function completeZero(str) {

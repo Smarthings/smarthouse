@@ -15,7 +15,7 @@ import "fonts/"
 ApplicationWindow {
     id: window
     visible: true
-    width: 640
+    width: 360
     height: 480
     title: qsTr("Smarthouse")
 
@@ -160,8 +160,11 @@ ApplicationWindow {
 
     function checkSizeWidth()
     {
-        var minwidth = (window.width <= 250)? window.width : 250;
-        var size = (Math.floor((window.width / Math.floor(width / minwidth))) - 15);
+        /*var minwidth = (window.width <= 250)? window.width : 250;
+        var size = (Math.floor((window.width / Math.floor(width / minwidth))) - 15);*/
+
+        var size = (Math.floor(window.width /3) -10);
+        console.log(size);
         return size;
     }   
 }
