@@ -22,7 +22,7 @@ Item {
         height: 10
         text: (dial_root.position * 100).toFixed(0) + "%"
         horizontalAlignment: Text.AlignHCenter
-        color: text_color
+        color: Material.accent
         font.pixelSize: 20
         font.weight: Font.Light
         anchors.centerIn: parent
