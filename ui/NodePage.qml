@@ -62,6 +62,16 @@ ScrollablePage {
                                     enabled: (type_node == 0)? true: false
                                     visible: (type_node == 0)? true: false
 
+                                    SmartSwitch {
+                                        id: smartswitch
+                                        switchWidth: 100
+                                        switchHeight: 100
+
+                                        itemWidth: parent.width
+                                        itemHeight: parent.height
+                                    }
+
+                                    /*
                                     Switch {
                                         id: switch_node
                                         width: Math.min(parent.width, parent.height) -50
@@ -137,6 +147,7 @@ ScrollablePage {
                                             z: 2
                                         }
                                     }
+                                    */
                                 }
 
                                 Column {
@@ -146,6 +157,16 @@ ScrollablePage {
                                     enabled: (type_node == 01)? true : false
                                     visible: (type_node == 01)? true : false
 
+                                    SmartDial {
+                                        id: smartdial
+                                        dialWidth: 100
+                                        dialHeight: 100
+
+                                        itemWidth: parent.width
+                                        itemHeight: parent.height
+                                    }
+
+                                    /*
                                     Label {
                                         id: label_range
                                         width: parent.width
@@ -248,8 +269,8 @@ ScrollablePage {
                                             ]
                                         }
                                     }
+                                    */
                                 }
-
                             }
                         }
                     }

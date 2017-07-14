@@ -95,20 +95,20 @@ ScrollablePage {
                                 color: text_color
                                 font.weight: Font.Light
                             }
+                        }
+                    }
 
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    stackView.push("qrc:/ui/NodePage.qml",
-                                                   {
-                                                       name: name,
-                                                       status_node: status_node,
-                                                       type_node: type_node,
-                                                       icon_type: icon_type
-                                                   })
-                                    window.header.title_page = name
-                                }
-                            }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            stackView.push("qrc:/ui/NodePage.qml",
+                                           {
+                                               name: name,
+                                               status_node: status_node,
+                                               type_node: type_node,
+                                               icon_type: icon_type
+                                           })
+                            window.header.title_page = name
                         }
                     }
                 }
