@@ -22,5 +22,6 @@
         <file>fonts/Smarthouse.ttf</file>
         <file>ui/IconsPage.qml</file>
         <file>ui/components/SmartIcon.qml</file>
+        <file>ui/dialogs/DialogSizeNodes.qml</file>
     </qresource>
 </RCC>

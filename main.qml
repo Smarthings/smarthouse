@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Material 2.0
 import Qt.labs.settings 1.0
 
@@ -21,19 +22,21 @@ ApplicationWindow {
 
     property color dark_background:         "#111111"
     property color dark_text_primary:       "#ff821e"
-    property color dark_background_items:   "#101010"
+    property color dark_background_items:   "#222222"
     property color dark_text_base:          "#cccccc"
     property color dark_title_base:         "#ffffff"
     property color dark_shadow_itens:       "#000000" //101010
-    property color dark_line_itens:         "#202020"
+    property color dark_line_itens:         "#101010"
+    property color dark_background_nodes:   "#222222"
 
-    property color light_background:        "#f9f9f9"
+    property color light_background:        "#eeeeee"
     property color light_text_primary:      "#dd4814"
     property color light_background_items:  "#f9f9f9"
     property color light_text_base:         "#333333"
     property color light_title_base:        "#222222"
     property color light_shadow_itens:      "#aaaaaa"
     property color light_line_itens:        "#dddddd"
+    property color light_background_nodes:  "#ffffff"
 
     property bool isConnect: tcpClient.status_conn
     property int numberMessage: tcpClient.error_conn.length
@@ -44,6 +47,7 @@ ApplicationWindow {
         property string color_theme: Material.DeepOrange
         property string server_address: ""
         property int server_port: 9932
+        property int size_nodes: 110
         onThemeChanged: {
             themeChoose = theme
         }
@@ -59,6 +63,7 @@ ApplicationWindow {
 
     property color background_color: (Material.theme == 0)? light_background : dark_background
     property color background_items: (Material.theme == 0)? light_background_items : dark_background_items
+    property color background_nodes: (Material.theme == 0)? light_background_nodes : dark_background_nodes
     property color text_color: (Material.theme == 0)? light_text_base : dark_text_base
     property color text_primary_color: colorChoose
     property color shadow_color: (Material.theme == 0)? light_shadow_itens : dark_shadow_itens
@@ -85,17 +90,10 @@ ApplicationWindow {
         Material.accent = colorChoose
     }
 
-    StatusBar {
-        id: statusBar
-        color: colorChoose
-    }
-
     header: HeaderPage {}
-
     StackView {
         id: stackView
         anchors.fill: parent
-
         initialItem: HomePage {}
     }
 
@@ -160,11 +158,9 @@ ApplicationWindow {
 
     function checkSizeWidth()
     {
-        /*var minwidth = (window.width <= 250)? window.width : 250;
-        var size = (Math.floor((window.width / Math.floor(width / minwidth))) - 15);*/
-
-        var size = (Math.floor(window.width /3) -10);
-        console.log(size);
+        var size = ((window.width - (settings.size_nodes * (Math.floor((window.width -10) / (settings.size_nodes -10))))) /2) -10;
+        if (size < 0)
+            size = ((window.width - (settings.size_nodes * (Math.floor((window.width -10) / (settings.size_nodes))))) /4);
         return size;
     }   
 }

@@ -8,22 +8,10 @@ import "./components/"
 
 ScrollablePage {
     id: homePage
+
     /*property bool statusConn: tcpClient.status_conn
     property int numberNodes: tcpClient.tcpStringList.length
-    property int updateNodes: tcpClient.nodesUpdate/
-
-    /*Grid {
-        id: grid_items
-        anchors.horizontalCenter: parent.horizontalCenter
-        //anchors.verticalCenter: parent.verticalCenter
-        columns: 3
-        spacing: 6
-
-        Rectangle { color: "#aa6666"; width: 90; height: 90 }
-        Rectangle { color: "#aaaa66"; width: 90; height: 90 }
-        Rectangle { color: "#9999aa"; width: 90; height: 90 }
-        Rectangle { color: "#6666aa"; width: 90; height: 90 }
-    }*/
+    property int updateNodes: tcpClient.nodesUpdate*/
 
     Rectangle {
         id: rectangle_root
@@ -49,10 +37,16 @@ ScrollablePage {
 
         GridView {
             id: gridNodesList
-            cellWidth: 110
-            cellHeight: 110
+            cellWidth: settings.size_nodes
+            cellHeight: settings.size_nodes
             anchors.fill: parent
             focus: true
+
+            anchors.leftMargin: size_nodes
+
+            Component.onCompleted: {
+                //console.log(gridNodesList.cellWidth)
+            }
 
             model: appModel
 
@@ -64,9 +58,10 @@ ScrollablePage {
                 Rectangle {
                     id: rectangle_box
                     anchors.fill: parent
-                    color: background_items
+                    color: background_nodes
                     radius: 10
                     border.color: line_color
+                    opacity: 0.80
 
                     Column {
                         id: column_item
@@ -98,23 +93,24 @@ ScrollablePage {
                                 anchors.centerIn: parent
                                 text: name
                                 color: text_color
+                                font.weight: Font.Light
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    stackView.push("qrc:/ui/NodePage.qml",
+                                                   {
+                                                       name: name,
+                                                       status_node: status_node,
+                                                       type_node: type_node,
+                                                       icon_type: icon_type
+                                                   })
+                                    window.header.title_page = name
+                                }
                             }
                         }
                     }
-                }
-                FastBlur {
-                    anchors.fill: rectangle_box
-                    source: rectangle_box
-                    radius: 32
-                }
-                DropShadow {
-                    anchors.fill: rectangle_box
-                    horizontalOffset: 2
-                    verticalOffset: 2
-                    radius: 2
-                    samples: 1
-                    color: shadow_color
-                    source: rectangle_box
                 }
             }
         }

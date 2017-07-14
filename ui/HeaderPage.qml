@@ -22,13 +22,13 @@ Rectangle {
     Rectangle {
         id:  header_main
         width: parent.width
-        height: parent.height - line_header.height
+        height: parent.height
         color: "transparent"
 
         Row {
             id: row_header_main
             width: parent.width
-            height: parent.height - line_header.height
+            height: parent.height
             spacing: 5
 
             visible: (stackView.depth > 1)? false : true
@@ -136,7 +136,7 @@ Rectangle {
         Row {
             id: row_header_pages
             width: parent.width
-            height: parent.height - line_header.height
+            height: parent.height
             spacing: 5
 
             visible: (stackView.depth > 1)? true : false
@@ -174,20 +174,5 @@ Rectangle {
                 verticalAlignment: Qt.AlignVCenter
             }
         }
-    }
-
-    Rectangle {
-        id: line_header
-        width: parent.width
-        height: 1
-        color: line_color
-        anchors.bottom: line_header2.top
-    }
-    Rectangle {
-        id: line_header2
-        width: parent.width
-        height: 1
-        color: shadow_color
-        anchors.bottom: parent.bottom
     }
 }
