@@ -90,6 +90,11 @@ ApplicationWindow {
         Material.accent = colorChoose
     }
 
+    StatusBar {
+        id: statusBar
+        color: colorChoose
+    }
+
     header: HeaderPage {}
     StackView {
         id: stackView
