@@ -15,6 +15,7 @@ Item {
     property int itemWidth: 0
     property int itemHeight: 0
     property bool button: false
+    property variant mouseArea
 
     width: (itemWidth > 0)? itemWidth : iconSize
     height: (itemHeight > 0)? itemHeight : iconSize
@@ -62,7 +63,7 @@ Item {
         states: [
             State {
                 name: "mouse-clicked"
-                when: mousearea_icon.containsPress
+                when: mouseArea.containsPress
                 PropertyChanges {
                     target: rectangle_mousearea
                     opacity: 0.2
@@ -75,7 +76,7 @@ Item {
             },
             State {
                 name: "mouse-over"
-                when: mousearea_icon.containsMouse
+                when: mouseArea.containsMouse
                 PropertyChanges {
                     target: rectangle_mousearea
                     opacity: 0.1
@@ -94,7 +95,15 @@ Item {
             }
         ]
 
-        MouseArea {
+        Rectangle {
+            id: rectangle_mousearea
+            anchors.fill: parent
+            radius: parent.width
+            opacity: 0
+            color: text_color
+        }
+
+        /*MouseArea {
             id: mousearea_icon
             anchors.fill: parent
             hoverEnabled: true
@@ -111,8 +120,9 @@ Item {
 
             ]
             onClicked: {
-                icon.state = "mouse-clicked"
+                console.log("OnClicked")
+                mouseArea;
             }
-        }
+        }*/
     }
 }
