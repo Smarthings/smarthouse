@@ -108,6 +108,7 @@ ScrollablePage {
                 Rectangle {
                     anchors.fill: parent
                     border.color: line_color
+                    color: background_nodes
                     opacity: 0.80
 
                     Row {
@@ -133,7 +134,7 @@ ScrollablePage {
                                     anchors.fill: parent
                                     hoverEnabled: true
                                     onClicked: {
-                                        console.log("")
+                                        item_stopwatch.visible = (item_stopwatch.visible == true)? false : true
                                     }
                                 }
                             }
@@ -168,9 +169,9 @@ ScrollablePage {
             }
 
             Item {
-                id: item_functions
+                id: item_stopwatch
                 width: parent.width
-                height: 100
+                height: column_stopwatch.height
                 anchors.left: parent.left
                 anchors.leftMargin: 10
                 anchors.right: parent.right
@@ -181,9 +182,86 @@ ScrollablePage {
                     anchors.fill: parent
                     radius: 10
                     border.color: line_color
+                    color: background_nodes
                     opacity: 0.80
+
+                    Column {
+                        id: column_stopwatch
+                        width: parent.width
+                        height: text_stopwatch.height + button_stopwatch.height + 10
+                        spacing: 5
+
+                        property int hours: 0;
+                        property int minutes: 0;
+                        property int seconds: 0;
+
+                        function timeChanged()
+                        {
+                            seconds++;
+                            if (seconds == 60) {
+                                seconds = 0;
+                                minutes++;
+                            }
+                            if (minutes == 60) {
+                                minutes = 0;
+                                hours++;
+                            }
+                        }
+
+                        Timer {
+                            id: timer_stopwatch
+                            interval: 1000
+                            running: false
+                            onTriggered: column_stopwatch.timeChanged();
+                        }
+
+                        Text {
+                            id: text_stopwatch
+                            text: completeZero(column_stopwatch.hours, 2) + ":" +
+                                  completeZero(column_stopwatch.minutes, 2) + ":" +
+                                  completeZero(column_stopwatch.seconds, 2)
+                            width: parent.width
+                            horizontalAlignment: Text.AlignHCenter
+                            font.pixelSize: 72
+                            font.weight: Font.Light
+                            color: (timer_stopwatch.running == true)? Material.accent : Material.foreground
+                        }
+                        Button {
+                            id: button_stopwatch
+                            width: parent.width
+
+                            anchors.left: parent.left
+                            anchors.leftMargin: 5
+                            anchors.right: parent.right
+                            anchors.rightMargin: 5
+
+                            height: 50
+                            text: (timer_stopwatch.running == true)? qsTr("Parar") : qsTr("Iniciar");
+                            Material.background: (timer_stopwatch.running == true)?
+                                                     Material.Red :
+                                                     Material.Green
+
+                            onClicked: {
+                                if (timer_stopwatch.running == true) {
+                                    timer_stopwatch.running = false;
+                                    timer_stopwatch.repeat = false;
+                                } else {
+                                    timer_stopwatch.running = true;
+                                    timer_stopwatch.repeat = true;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
+    }
+    function completeZero(str, length) {
+        str = str.toString();
+        while (str.length < length) {
+            str = "0" + str;
+            console.log(str);
+        }
+        return str;
     }
 }
