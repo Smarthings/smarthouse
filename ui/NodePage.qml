@@ -3,6 +3,7 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
+//import QtQuick.Extras 1.4
 //import QtQuick.Controls.Styles 1.4
 
 import "./components/"
@@ -188,7 +189,7 @@ ScrollablePage {
                     Column {
                         id: column_stopwatch
                         width: parent.width
-                        height: text_stopwatch.height + button_stopwatch.height + 10
+                        height: smarttumblerstopwatch.height + text_stopwatch.height + button_stopwatch.height + 10
                         spacing: 5
 
                         property int hours: 0;
@@ -213,6 +214,12 @@ ScrollablePage {
                             interval: 1000
                             running: false
                             onTriggered: column_stopwatch.timeChanged();
+                        }
+
+                        SmartTumblerStopWatch {
+                            id: smarttumblerstopwatch
+                            itemWidth: parent.width
+                            itemHeight: 80
                         }
 
                         Text {
@@ -260,7 +267,6 @@ ScrollablePage {
         str = str.toString();
         while (str.length < length) {
             str = "0" + str;
-            console.log(str);
         }
         return str;
     }

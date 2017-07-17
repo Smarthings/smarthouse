@@ -25,5 +25,6 @@
         <file>ui/dialogs/DialogSizeNodes.qml</file>
         <file>ui/components/SmartSwitch.qml</file>
         <file>ui/components/SmartDial.qml</file>
+        <file>ui/components/SmartTumblerStopWatch.qml</file>
     </qresource>
 </RCC>
