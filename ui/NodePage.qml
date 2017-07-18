@@ -189,7 +189,7 @@ ScrollablePage {
                     Column {
                         id: column_stopwatch
                         width: parent.width
-                        height: smarttumblerstopwatch.height /*+ text_stopwatch.height*/ + button_stopwatch.height + 10
+                        height: smarttumblerstopwatch.height /*+ text_stopwatch.height */+ button_stopwatch.height + 10
                         spacing: 5
 
                         property int hours: 0;
@@ -227,13 +227,15 @@ ScrollablePage {
                             id: stopwatch_running
                             itemWidth: parent.width
                             itemHeight: 80
+                            textColor: (timer_stopwatch.running == true)? Material.accent : Material.foreground
                             visible: (timer_stopwatch.running == true)? true : false
-                            seconds: column_stopwatch.seconds
+                            seconds: [column_stopwatch.seconds]
+                            minutes: [column_stopwatch.minutes]
+                            hours: [column_stopwatch.hours]
                         }
 
-                        Text {
+                        /*Text {
                             id: text_stopwatch
-                            visible: false
                             text: completeZero(column_stopwatch.hours, 2) + ":" +
                                   completeZero(column_stopwatch.minutes, 2) + ":" +
                                   completeZero(column_stopwatch.seconds, 2)
@@ -242,7 +244,7 @@ ScrollablePage {
                             font.pixelSize: 72
                             font.weight: Font.Light
                             color: (timer_stopwatch.running == true)? Material.accent : Material.foreground
-                        }
+                        }*/
                         Button {
                             id: button_stopwatch
                             width: parent.width

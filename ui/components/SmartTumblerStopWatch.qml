@@ -9,9 +9,10 @@ Item {
 
     property int itemWidth: 0
     property int itemHeight: 0
-    property int hours
-    property int minutes
-    property int seconds
+    property string textColor: Material.foreground
+    property variant hours: []
+    property variant minutes: []
+    property variant seconds: []
 
     width: (itemWidth > 0)? itemWidth: parent.width
     height: (itemHeight > 0)? itemHeight: 100
@@ -23,7 +24,7 @@ Item {
             text: completeZero(modelData, 2);
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            color: Material.foreground
+            color: textColor
             opacity: 1.0 - Math.abs(Tumbler.displacement);
             font.pixelSize: 72
             font.weight: Font.Light
@@ -34,7 +35,7 @@ Item {
         anchors.fill: parent
         Tumbler {
             id: tumbler_hours
-            model: (hours)? hours : 24
+            model: (hours.length > 0)? hours : 24
             width: parent.width /3 - 4
             height: parent.height
 
@@ -52,7 +53,7 @@ Item {
             width: 1
             height: parent.height
             text: ":"
-            color: Material.foreground
+            color: textColor
             font.pixelSize: 42
             font.weight: Font.Light
             verticalAlignment: Text.AlignVCenter
@@ -60,7 +61,7 @@ Item {
         }
         Tumbler {
             id: tumbler_minutes
-            model: (minutes)? minutes : 60
+            model: (minutes.length > 0)? minutes : 60
             width: parent.width /3 - 4
             height: parent.height
 
@@ -71,7 +72,7 @@ Item {
             width: 1
             height: parent.height
             text: ":"
-            color: Material.foreground
+            color: textColor
             font.pixelSize: 42
             font.weight: Font.Light
             verticalAlignment: Text.AlignVCenter
@@ -79,7 +80,7 @@ Item {
         }
         Tumbler {
             id: tumbler_seconds
-            model: (seconds)? seconds : 60
+            model: (seconds.length > 0)? seconds : 60
             width: parent.width /3 - 4
             height: parent.height
 
