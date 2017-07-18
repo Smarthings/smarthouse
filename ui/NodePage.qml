@@ -192,21 +192,44 @@ ScrollablePage {
                         height: smarttumblerstopwatch.height /*+ text_stopwatch.height */+ button_stopwatch.height + 10
                         spacing: 5
 
-                        property int hours: 0;
-                        property int minutes: 0;
-                        property int seconds: 0;
+                        property int hours: smarttumblerstopwatch.getHours;
+                        property int minutes: smarttumblerstopwatch.getMinutes;
+                        property int seconds: smarttumblerstopwatch.getSeconds;
+                        property int timeseconds: 0
 
                         function timeChanged()
                         {
-                            seconds++;
+
+                            if (hours == 0 && minutes == 0 && seconds == 0) {
+                                console.log("Executar: 00:00:00");
+                                timer_stopwatch.running = false;
+                                smarttumblerstopwatch.setHours = 24;
+                                smarttumblerstopwatch.setMinutes = 60;
+                                smarttumblerstopwatch.setSeconds = 60;
+                                return;
+                            }
+
+                            if (hours == 0) {
+
+                            } else if (minutes == 0) {
+                                minutes = 59;
+                                hours--;
+                            }
+                            if (seconds == 0) {
+                                seconds = 59;
+                                minutes--;
+                            }
+                            seconds--;
+
+                            /*seconds--;
                             if (seconds == 60) {
                                 seconds = 0;
-                                minutes++;
+                                minutes--;
                             }
                             if (minutes == 60) {
                                 minutes = 0;
-                                hours++;
-                            }
+                                hours--;
+                            }*/
                         }
 
                         Timer {
