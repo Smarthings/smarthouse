@@ -207,9 +207,10 @@ ScrollablePage {
                             }
                             timeseconds--;
                             var str_time = new Date(timeseconds * 1000);
-                            hours = str_time.getUTCHours();
-                            minutes = str_time.getUTCMinutes();
-                            seconds = str_time.getUTCSeconds();
+
+                            smarttumblerstopwatch.setHours.currentIndex = str_time.getUTCHours();
+                            smarttumblerstopwatch.setMinutes.currentIndex = str_time.getUTCMinutes();
+                            smarttumblerstopwatch.setSeconds.currentIndex = str_time.getUTCSeconds();
                         }
 
                         Timer {
@@ -222,32 +223,14 @@ ScrollablePage {
                         SmartTumblerStopWatch {
                             id: smarttumblerstopwatch
                             itemWidth: parent.width
-                            itemHeight: 80
-                            visible: (timer_stopwatch.running == true)? false : true
+                            itemHeight: 120
+
+                            MouseArea {
+                                anchors.fill: parent
+                                visible: (timer_stopwatch.running == true)? true : false
+                            }
                         }
 
-                        SmartTumblerStopWatch {
-                            id: stopwatch_running
-                            itemWidth: parent.width
-                            itemHeight: 80
-                            textColor: (timer_stopwatch.running == true)? Material.accent : Material.foreground
-                            visible: (timer_stopwatch.running == true)? true : false
-                            seconds: [column_stopwatch.seconds]
-                            minutes: [column_stopwatch.minutes]
-                            hours: [column_stopwatch.hours]
-                        }
-
-                        /*Text {
-                            id: text_stopwatch
-                            text: completeZero(column_stopwatch.hours, 2) + ":" +
-                                  completeZero(column_stopwatch.minutes, 2) + ":" +
-                                  completeZero(column_stopwatch.seconds, 2)
-                            width: parent.width
-                            horizontalAlignment: Text.AlignHCenter
-                            font.pixelSize: 72
-                            font.weight: Font.Light
-                            color: (timer_stopwatch.running == true)? Material.accent : Material.foreground
-                        }*/
                         Button {
                             id: button_stopwatch
                             width: parent.width
