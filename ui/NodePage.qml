@@ -199,37 +199,17 @@ ScrollablePage {
 
                         function timeChanged()
                         {
-
-                            if (hours == 0 && minutes == 0 && seconds == 0) {
-                                console.log("Executar: 00:00:00");
+                            if (timeseconds == 0) {
                                 timer_stopwatch.running = false;
-                                smarttumblerstopwatch.setHours = 24;
-                                smarttumblerstopwatch.setMinutes = 60;
-                                smarttumblerstopwatch.setSeconds = 60;
+                                resetStopwatch();
+                                console.log("Executar função");
                                 return;
                             }
-
-                            if (hours == 0) {
-
-                            } else if (minutes == 0) {
-                                minutes = 59;
-                                hours--;
-                            }
-                            if (seconds == 0) {
-                                seconds = 59;
-                                minutes--;
-                            }
-                            seconds--;
-
-                            /*seconds--;
-                            if (seconds == 60) {
-                                seconds = 0;
-                                minutes--;
-                            }
-                            if (minutes == 60) {
-                                minutes = 0;
-                                hours--;
-                            }*/
+                            timeseconds--;
+                            var str_time = new Date(timeseconds * 1000);
+                            hours = str_time.getUTCHours();
+                            minutes = str_time.getUTCMinutes();
+                            seconds = str_time.getUTCSeconds();
                         }
 
                         Timer {
@@ -278,15 +258,25 @@ ScrollablePage {
                             anchors.rightMargin: 5
 
                             height: 50
-                            text: (timer_stopwatch.running == true)? qsTr("Parar") : qsTr("Iniciar");
+                            text: (timer_stopwatch.running == true)? qsTr("Cancelar") : qsTr("Iniciar");
                             Material.background: (timer_stopwatch.running == true)?
                                                      Material.Red :
                                                      Material.Green
 
                             onClicked: {
+                                column_stopwatch.timeseconds =
+                                        getTimeSeconds(
+                                            "1970-01-01 "
+                                            +completeZero(smarttumblerstopwatch.getHours, 2)+":"
+                                            +completeZero(smarttumblerstopwatch.getMinutes, 2)+":"
+                                            +completeZero(smarttumblerstopwatch.getSeconds, 2)
+                                            +" -0000"
+                                            );
+
                                 if (timer_stopwatch.running == true) {
                                     timer_stopwatch.running = false;
                                     timer_stopwatch.repeat = false;
+                                    resetStopwatch();
                                 } else {
                                     timer_stopwatch.running = true;
                                     timer_stopwatch.repeat = true;
@@ -298,6 +288,21 @@ ScrollablePage {
             }
         }
     }
+    function resetStopwatch() {
+        column_stopwatch.timeseconds = 0;
+        column_stopwatch.hours = 0;
+        column_stopwatch.minutes = 0;
+        column_stopwatch.seconds = 0;
+        smarttumblerstopwatch.setHours.currentIndex = 0;
+        smarttumblerstopwatch.setMinutes.currentIndex = 0;
+        smarttumblerstopwatch.setSeconds.currentIndex = 0
+    }
+
+    function getTimeSeconds(str) {
+        var time = new Date(str + " -0000");
+        return time.getTime() /1000;
+    }
+
     function completeZero(str, length) {
         str = str.toString();
         while (str.length < length) {

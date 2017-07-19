@@ -13,9 +13,9 @@ Item {
     property variant hours: []
     property variant minutes: []
     property variant seconds: []
-    property variant setHours: tumbler_hours.model
-    property variant setMinutes: tumbler_minutes.model
-    property variant setSeconds: tumbler_seconds.model
+    property variant setHours: tumbler_hours
+    property variant setMinutes: tumbler_minutes
+    property variant setSeconds: tumbler_seconds
     property int getHours: tumbler_hours.currentIndex.toString()
     property int getMinutes: tumbler_minutes.currentIndex.toString()
     property int getSeconds: tumbler_seconds.currentIndex.toString()
