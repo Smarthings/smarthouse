@@ -16,12 +16,6 @@ ScrollablePage {
     property string type_node: ""
     property string icon_type: ""
 
-    Component.onCompleted: {
-        console.log(
-                    name, status_node, type_node, icon_type
-                    );
-    }
-
     ColumnLayout {
         id: column_general
         anchors.fill: parent
@@ -29,85 +23,6 @@ ScrollablePage {
         Column {
             Layout.fillWidth: true
             spacing: 10
-
-            Item {
-                id: item_root
-                width: parent.width
-                height: 200
-                anchors.left: parent.left
-                anchors.leftMargin: 10
-                anchors.right: parent.right
-                anchors.rightMargin: 10
-
-                Rectangle {
-                    anchors.fill: parent
-                    color: background_nodes
-                    radius: 10
-                    border.color: line_color
-                    opacity: 0.80
-
-                    Row {
-                        anchors.fill: parent
-
-                        Item {
-                            width: parent.width /2
-                            height: parent.height
-                            SmartIcon {
-                                id: smarticon
-                                iconName: (icon_type == "")? "microchip": icon_type
-                                iconSize: Math.min(parent.width, parent.height)
-                                itemWidth: parent.width
-                                itemHeight: parent.height
-                            }
-                        }
-                        Item {
-                            width: parent.width /2
-                            height: parent.height
-
-                            Column {
-                                width: parent.width
-                                height: parent.height
-
-                                Column {
-                                    id: column_switch
-                                    width: parent.width
-                                    height: parent.height
-                                    enabled: (type_node == 0)? true: false
-                                    visible: (type_node == 0)? true: false
-
-                                    SmartSwitch {
-                                        id: smartswitch
-                                        switchWidth: 100
-                                        switchHeight: 100
-                                        check: status_node
-
-                                        itemWidth: parent.width
-                                        itemHeight: parent.height
-                                    }
-                                }
-
-                                Column {
-                                    id: column_range
-                                    width: parent.width
-                                    height: parent.height
-                                    enabled: (type_node == 01)? true : false
-                                    visible: (type_node == 01)? true : false
-
-                                    SmartDial {
-                                        id: smartdial
-                                        value: status_node
-                                        dialWidth: 100
-                                        dialHeight: 100
-
-                                        itemWidth: parent.width
-                                        itemHeight: parent.height
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
 
             Item {
                 id: item_functions_buttons
@@ -205,7 +120,7 @@ ScrollablePage {
                     Column {
                         id: column_stopwatch
                         width: parent.width
-                        height: smarttumblerstopwatch.height /*+ text_stopwatch.height */+ button_stopwatch.height + 10
+                        height: smarttumblerstopwatch.height /*+ text_stopwatch.height */ + 10
                         spacing: 5
 
                         property int hours: smarttumblerstopwatch.getHours;
@@ -247,44 +162,135 @@ ScrollablePage {
                                 visible: (timer_stopwatch.running == true)? true : false
                             }
                         }
+                    }
+                }
+            }
 
-                        Button {
-                            id: button_stopwatch
-                            width: parent.width
+            Item {
+                id: item_root
+                width: parent.width
+                height: 200
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 10
 
-                            anchors.left: parent.left
-                            anchors.leftMargin: 5
-                            anchors.right: parent.right
-                            anchors.rightMargin: 5
+                Rectangle {
+                    anchors.fill: parent
+                    color: background_nodes
+                    radius: 10
+                    border.color: line_color
+                    opacity: 0.80
 
-                            height: 50
-                            text: (timer_stopwatch.running == true)? qsTr("Cancelar") : qsTr("Iniciar");
-                            Material.background: (timer_stopwatch.running == true)?
-                                                     Material.Red :
-                                                     Material.Green
+                    Row {
+                        anchors.fill: parent
 
-                            onClicked: {
-                                column_stopwatch.timeseconds =
-                                        getTimeSeconds(
-                                            "1970-01-01 "
-                                            +completeZero(smarttumblerstopwatch.getHours, 2)+":"
-                                            +completeZero(smarttumblerstopwatch.getMinutes, 2)+":"
-                                            +completeZero(smarttumblerstopwatch.getSeconds, 2)
-                                            +" -0000"
-                                            );
+                        Item {
+                            width: parent.width /2
+                            height: parent.height
+                            SmartIcon {
+                                id: smarticon
+                                iconName: (icon_type == "")? "microchip": icon_type
+                                iconSize: Math.min(parent.width, parent.height)
+                                itemWidth: parent.width
+                                itemHeight: parent.height
+                            }
+                        }
+                        Item {
+                            width: parent.width /2
+                            height: parent.height
 
-                                if (timer_stopwatch.running == true) {
-                                    timer_stopwatch.running = false;
-                                    timer_stopwatch.repeat = false;
-                                    resetStopwatch();
-                                } else {
-                                    timer_stopwatch.running = true;
-                                    timer_stopwatch.repeat = true;
+                            Column {
+                                width: parent.width
+                                height: parent.height
+
+                                Column {
+                                    id: column_switch
+                                    width: parent.width
+                                    height: parent.height
+                                    enabled: (type_node == 0)? true: false
+                                    visible: (type_node == 0)? true: false
+
+                                    SmartSwitch {
+                                        id: smartswitch
+                                        switchWidth: 100
+                                        switchHeight: 100
+                                        check: status_node
+
+                                        itemWidth: parent.width
+                                        itemHeight: parent.height
+                                    }
+                                }
+
+                                Column {
+                                    id: column_range
+                                    width: parent.width
+                                    height: parent.height
+                                    enabled: (type_node == 01)? true : false
+                                    visible: (type_node == 01)? true : false
+
+                                    SmartDial {
+                                        id: smartdial
+                                        value: status_node
+                                        dialWidth: 100
+                                        dialHeight: 100
+
+                                        itemWidth: parent.width
+                                        itemHeight: parent.height
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            }
+
+            Item {
+                id: item_stopwatch_button
+                width: parent.width
+                height: 50
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                visible: item_stopwatch.visible
+
+                Button {
+                    id: button_stopwatch
+                    width: parent.width
+
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                    anchors.right: parent.right
+                    anchors.rightMargin: 5
+
+                    height: 50
+                    text: (timer_stopwatch.running == true)? qsTr("Cancelar") : qsTr("Iniciar");
+                    Material.background: (timer_stopwatch.running == true)?
+                                             Material.Red :
+                                             Material.Green
+
+                    onClicked: {
+                        column_stopwatch.timeseconds =
+                                getTimeSeconds(
+                                    "1970-01-01 "
+                                    +completeZero(smarttumblerstopwatch.getHours, 2)+":"
+                                    +completeZero(smarttumblerstopwatch.getMinutes, 2)+":"
+                                    +completeZero(smarttumblerstopwatch.getSeconds, 2)
+                                    +" -0000"
+                                    );
+
+                        if (timer_stopwatch.running == true) {
+                            timer_stopwatch.running = false;
+                            timer_stopwatch.repeat = false;
+                            resetStopwatch();
+                        } else {
+                            timer_stopwatch.running = true;
+                            timer_stopwatch.repeat = true;
+                        }
+                    }
+                }
+
             }
 
             Item {
