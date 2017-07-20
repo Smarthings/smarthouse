@@ -215,7 +215,7 @@ ScrollablePage {
                                         id: smartswitch
                                         switchWidth: 100
                                         switchHeight: 100
-                                        check: status_node
+                                        value: status_node
 
                                         itemWidth: parent.width
                                         itemHeight: parent.height

@@ -12,6 +12,15 @@ Item {
     property int itemWidth: 0
     property int itemHeight: 0
     property bool check: switch_root.checked
+    property int value: 0
+
+    Component.onCompleted: {
+        if (value == 0) {
+            switch_root.checked = false
+        } else {
+            switch_root.checked = true
+        }
+    }
 
     width: (itemWidth > 0)? itemWidth: switchWidth
     height: (itemHeight > 0)? itemHeight: switchHeight
