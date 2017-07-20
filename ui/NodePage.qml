@@ -16,6 +16,12 @@ ScrollablePage {
     property string type_node: ""
     property string icon_type: ""
 
+    Component.onCompleted: {
+        console.log(
+                    name, status_node, type_node, icon_type
+                    );
+    }
+
     ColumnLayout {
         id: column_general
         anchors.fill: parent
@@ -73,6 +79,7 @@ ScrollablePage {
                                         id: smartswitch
                                         switchWidth: 100
                                         switchHeight: 100
+                                        check: status_node
 
                                         itemWidth: parent.width
                                         itemHeight: parent.height
@@ -88,6 +95,7 @@ ScrollablePage {
 
                                     SmartDial {
                                         id: smartdial
+                                        value: status_node
                                         dialWidth: 100
                                         dialHeight: 100
 
