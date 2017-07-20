@@ -111,7 +111,30 @@ ScrollablePage {
                         }
                     }
 
+                    states: [
+                        State {
+                            when: mouserArea_node.pressed
+                            PropertyChanges {
+                                target: rectangle_box
+                                opacity: 0.5
+                                scale: 1.1
+                                z: 100
+                            }
+                        }
+                    ]
+
+                    transitions: [
+                        Transition {
+                            NumberAnimation {
+                                properties: "scale, opacity"
+                                easing.type: Easing.InOutQuad
+                                duration: 100
+                            }
+                        }
+                    ]
+
                     MouseArea {
+                        id: mouserArea_node
                         anchors.fill: parent
 
                         onPressAndHold: {
