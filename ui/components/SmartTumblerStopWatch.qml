@@ -36,7 +36,7 @@ Item {
             verticalAlignment: Text.AlignVCenter
             color: textColor
             opacity: 1.0 - Math.abs(Tumbler.displacement);
-            font.pixelSize: 72;
+            font.pixelSize: 92;
             font.weight: Font.Light
         }
     }

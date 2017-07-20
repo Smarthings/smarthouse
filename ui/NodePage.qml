@@ -126,6 +126,7 @@ ScrollablePage {
                                 iconSize: parent.height - 5
                                 itemWidth: parent.width
                                 itemHeight: parent.height
+                                iconColor: (item_stopwatch.visible == true)? Material.accent : Material.foreground
                                 button: true
                                 z: 10
 
@@ -136,6 +137,9 @@ ScrollablePage {
                                     hoverEnabled: true
                                     onClicked: {
                                         item_stopwatch.visible = (item_stopwatch.visible == true)? false : true
+                                        if (item_stopwatch.visible == true) {
+                                            item_alarm.visible = false
+                                        }
                                     }
                                 }
                             }
@@ -151,6 +155,7 @@ ScrollablePage {
                                 iconSize: parent.height - 5
                                 itemWidth: parent.width
                                 itemHeight: parent.height
+                                iconColor: (item_alarm.visible == true)? Material.accent : Material.foreground
                                 button: true
                                 z: 10
 
@@ -160,7 +165,10 @@ ScrollablePage {
                                     anchors.fill: parent
                                     hoverEnabled: true
                                     onClicked: {
-                                        console.log("OnClicked")
+                                        item_alarm.visible = (item_alarm.visible == true)? false : true
+                                        if (item_alarm.visible == true) {
+                                            item_stopwatch.visible = false
+                                        }
                                     }
                                 }
                             }
@@ -224,6 +232,7 @@ ScrollablePage {
                             id: smarttumblerstopwatch
                             itemWidth: parent.width
                             itemHeight: 120
+                            textColor: (timer_stopwatch.running == true)? Material.accent : Material.foreground
 
                             MouseArea {
                                 anchors.fill: parent
@@ -267,6 +276,25 @@ ScrollablePage {
                             }
                         }
                     }
+                }
+            }
+
+            Item {
+                id: item_alarm
+                width: parent.width
+                height: 200
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                visible: false
+
+                Rectangle {
+                    anchors.fill: parent
+                    radius: 10
+                    border.color: line_color
+                    color: background_nodes
+                    opacity: 0.80
                 }
             }
         }
