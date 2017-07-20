@@ -21,7 +21,7 @@ ScrollablePage {
 
         ListModel {
             id: appModel
-            ListElement { name: "Node 1"; status_node: 0; icon_type: ""; type_node: 00; }
+            ListElement { name: "Node 1"; status_node: 1; icon_type: ""; type_node: 00; }
             ListElement { name: "Node 2"; status_node: 0; icon_type: "lamp"; type_node: 01; }
             ListElement { name: "Node 3"; status_node: 50; icon_type: "fan"; type_node: 01; }
             ListElement { name: "Node 4"; status_node: 0; icon_type: "lamp"; type_node: 00; }
@@ -98,7 +98,7 @@ ScrollablePage {
                                 font.pixelSize: 12
                             }
                             Text {
-                                text: (status_node == 0)? qsTr("off") : "on " + status_node + "%"
+                                text: text_node(status_node, type_node);
                                 color: text_color
                                 font.weight: Font.Light
                                 font.pixelSize: 10
@@ -113,6 +113,24 @@ ScrollablePage {
 
                     MouseArea {
                         anchors.fill: parent
+
+                        onPressAndHold: {
+                            if (type_node == 0) {
+                                if (status_node > 0) {
+                                    status_node = 0
+                                } else {
+                                    status_node = 1
+                                }
+                            }
+                            if (type_node == 1) {
+                                if (status_node > 0) {
+                                    status_node = 0
+                                } else {
+                                    status_node = 100
+                                }
+                            }
+                        }
+
                         onClicked: {
                             stackView.push("qrc:/ui/NodePage.qml",
                                            {
@@ -408,6 +426,23 @@ ScrollablePage {
             }
         }
         */
+    }
+
+    function text_node (status_node, type_node)
+    {
+        var text = "";
+        //(status_node == 0)? qsTr"OFF") : "ON " + status_node + "%"
+        if (status_node == 0) {
+            text = qsTr("OFF");
+        } else {
+            if (type_node == 0) {
+                text = qsTr("ON")
+            }
+            if (type_node == 1) {
+                text = qsTr("ON") + " " + status_node + "%"
+            }
+        }
+        return text;
     }
 
     function completeZero(str) {
