@@ -58,7 +58,9 @@ ScrollablePage {
                 Rectangle {
                     id: rectangle_box
                     anchors.fill: parent
-                    color: background_nodes
+                    color: (status_node > 0)? Qt.rgba(Material.accent.r,
+                                                      Material.accent.g,
+                                                      Material.accent.b, 0.15) : background_nodes
                     radius: 10
                     border.color: line_color
                     opacity: 0.80
@@ -76,6 +78,7 @@ ScrollablePage {
                                 id: smarticon
                                 iconName: (icon_type == "")? "microchip": icon_type
                                 iconSize: Math.min(item_block.width, item_block.height)
+                                //iconColor: (status_node == 0)? Material.foreground : Material.accent
                                 itemWidth: parent.width
                                 itemHeight: parent.height
 
@@ -102,7 +105,7 @@ ScrollablePage {
                                 color: text_color
                                 font.weight: Font.Light
                                 font.pixelSize: 10
-                                opacity: 0.3
+                                opacity: 0.4
                                 anchors.bottom: parent.bottom
                                 anchors.bottomMargin: 5
                                 anchors.right: parent.right
@@ -157,6 +160,7 @@ ScrollablePage {
                         onClicked: {
                             stackView.push("qrc:/ui/NodePage.qml",
                                            {
+                                               id: index,
                                                name: name,
                                                status_node: status_node,
                                                type_node: type_node,

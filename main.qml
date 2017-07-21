@@ -27,7 +27,7 @@ ApplicationWindow {
     property color dark_title_base:         "#ffffff"
     property color dark_shadow_itens:       "#000000" //101010
     property color dark_line_itens:         "#101010"
-    property color dark_background_nodes:   "#202020"
+    property color dark_background_nodes:   "#191919"
 
     property color light_background:        "#eeeeee"
     property color light_text_primary:      "#dd4814"

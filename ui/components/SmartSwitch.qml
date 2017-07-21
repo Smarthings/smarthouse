@@ -12,10 +12,11 @@ Item {
     property int itemWidth: 0
     property int itemHeight: 0
     property bool check: switch_root.checked
-    property int value: 0
+    property int setValue: 0
+    property alias _switch: switch_root
 
     Component.onCompleted: {
-        if (value == 0) {
+        if (setValue == 0) {
             switch_root.checked = false
         } else {
             switch_root.checked = true
@@ -53,6 +54,7 @@ Item {
 
                 states: [
                     State {
+                        id: state_on
                         name: "on"
                         PropertyChanges {
                             target: rectangle_switch
@@ -60,6 +62,7 @@ Item {
                         }
                     },
                     State {
+                        id: state_off
                         name: "off"
                         PropertyChanges {
                             target: rectangle_switch
@@ -70,8 +73,9 @@ Item {
 
                 transitions: [
                     Transition {
+                        id: transition_on_off
                         NumberAnimation {
-                            properties: "y"
+                            properties: "y,anchors,topMargin"
                             easing.type: Easing.InOutQuad
                             duration: 200
                         }

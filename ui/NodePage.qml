@@ -11,6 +11,7 @@ import "./components/"
 ScrollablePage {
     id: nodePage
 
+    property int id
     property string name: ""
     property string status_node: ""
     property string type_node: ""
@@ -133,7 +134,7 @@ ScrollablePage {
                             if (timeseconds == 0) {
                                 timer_stopwatch.running = false;
                                 resetStopwatch();
-                                console.log("Executar função");
+                                getChangedDial();
                                 return;
                             }
                             timeseconds--;
@@ -215,7 +216,7 @@ ScrollablePage {
                                         id: smartswitch
                                         switchWidth: 100
                                         switchHeight: 100
-                                        value: status_node
+                                        setValue: parseInt(status_node)
 
                                         itemWidth: parent.width
                                         itemHeight: parent.height
@@ -231,7 +232,7 @@ ScrollablePage {
 
                                     SmartDial {
                                         id: smartdial
-                                        value: status_node
+                                        setValue: parseInt(status_node)
                                         dialWidth: 100
                                         dialHeight: 100
 
@@ -312,8 +313,50 @@ ScrollablePage {
                 }
             }
         }
+
+        Connections {
+            target: smartdial._dial
+            onPressedChanged: {
+                getChangedDial();
+            }
+        }
+
+        Connections {
+            target: smartswitch._switch
+            onCheckedChanged: {
+                getChangedSwitch();
+            }
+        }
     }
-    function resetStopwatch() {
+
+    function getChangedDial()
+    {
+        if (smarttumblerstopwatch.getHours == 0 &&
+                smarttumblerstopwatch.getMinutes == 0 &&
+                smarttumblerstopwatch.getSeconds == 0) {
+            var value = (smartdial._dial.value * 100).toFixed(0);
+            if (value != status_node) {
+                status_node = value;
+                console.log(status_node);
+            }
+        }
+    }
+
+    function getChangedSwitch()
+    {
+        if (smarttumblerstopwatch.getHours == 0 &&
+                smarttumblerstopwatch.getMinutes == 0 &&
+                smarttumblerstopwatch.getSeconds == 0) {
+            var value = smartswitch._switch.checked
+            if (value != status_node) {
+                status_node = value;
+                console.log(status_node);
+            }
+        }
+    }
+
+    function resetStopwatch()
+    {
         column_stopwatch.timeseconds = 0;
         column_stopwatch.hours = 0;
         column_stopwatch.minutes = 0;
@@ -323,12 +366,14 @@ ScrollablePage {
         smarttumblerstopwatch.setSeconds.currentIndex = 0
     }
 
-    function getTimeSeconds(str) {
+    function getTimeSeconds(str)
+    {
         var time = new Date(str + " -0000");
         return time.getTime() /1000;
     }
 
-    function completeZero(str, length) {
+    function completeZero(str, length)
+    {
         str = str.toString();
         while (str.length < length) {
             str = "0" + str;

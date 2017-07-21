@@ -4,14 +4,15 @@ import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
-Item {
+    Item {
     id: item
 
     property int dialWidth: 90
     property int dialHeight: 90
     property int itemWidth: 0
     property int itemHeight: 0
-    property int value: 0
+    property int setValue: 0
+    property alias _dial: dial_root
 
     width: (itemWidth > 0)? itemWidth: dialWidth
     height: (itemHeight > 0)? itemHeight: dialHeight
@@ -22,10 +23,11 @@ Item {
         height: 10
         text: (dial_root.position * 100).toFixed(0) + "%"
         horizontalAlignment: Text.AlignHCenter
-        color: Material.accent
+        color: Material.foreground
         font.pixelSize: 20
         font.weight: Font.Light
-        anchors.centerIn: parent
+        x: 0
+        y: width /2
         z: 2
 
         states: [
@@ -33,15 +35,17 @@ Item {
                 when: dial_root.pressed
                 PropertyChanges {
                     target: label_root
-                    color: Material.background
-                    font.pixelSize: 30
+                    x: -width/2 +5
+                    font.pixelSize: 28
                 }
             }
         ]
 
         transitions: [
             Transition {
-                ColorAnimation {
+                PropertyAnimation {
+                    properties: "x"
+                    easing.type: Easing.InOutQuad
                     duration: 200
                 }
             }
@@ -63,8 +67,7 @@ Item {
             height: parent.height
             radius: width /2
             border.color: Material.accent
-            opacity: 0.8
-            color: "transparent"
+            color: Qt.rgba(Material.accent.r, Material.accent.g, Material.accent.b, dial_root.value)
 
             states: [
                 State {
@@ -76,7 +79,7 @@ Item {
                     }
                     PropertyChanges {
                         target: rectangle_background
-                        color: Material.accent
+                        //color: Material.accent
                     }
                 }
             ]
@@ -98,10 +101,12 @@ Item {
             id: rectangle_handle
             x: dial_root.background.x + dial_root.background.width /2 - width /2
             y: dial_root.background.y + dial_root.background.height /2 - height /2
-            width: 16
-            height: 16
+            width: 28
+            height: 28
             radius: width /2
             color: Material.accent
+            border.color: background_items
+            border.width: 3
             antialiasing: true
             transform: [
                 Translate {
@@ -119,7 +124,7 @@ Item {
                     when: dial_root.pressed
                     PropertyChanges {
                         target: rectangle_handle
-                        color: Material.background
+                        //color: Material.background
                     }
                 }
             ]
