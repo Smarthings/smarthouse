@@ -24,7 +24,7 @@ import QtGraphicalEffects 1.0
         text: (dial_root.position * 100).toFixed(0) + "%"
         horizontalAlignment: Text.AlignHCenter
         color: Material.foreground
-        font.pixelSize: 20
+        font.pixelSize: 15
         font.weight: Font.Light
         x: 0
         y: width /2
@@ -35,8 +35,8 @@ import QtGraphicalEffects 1.0
                 when: dial_root.pressed
                 PropertyChanges {
                     target: label_root
-                    x: -width/2 +5
-                    font.pixelSize: 28
+                    x: -width/2 +15
+                    font.pixelSize: 20
                 }
             }
         ]
