@@ -1,6 +1,5 @@
 #include "tcpclient.h"
 
-
 TcpClient::TcpClient(QObject *parent) : QObject(parent)
 {
 
@@ -77,9 +76,14 @@ void TcpClient::getNodesFromServer(QJsonObject nodes)
     QStringList nodes_list = nodes.keys();
     for (const QString &node: nodes_list) {
         if (!findNodes(node, nodes)) {
-            dataList.append(new Nodes(node,
-                                      nodes[node].toObject().value("status").toString(),
-                                      nodes[node].toObject().value("range").toString()));
+            dataList.append(
+                        new Nodes(
+                            node,
+                            nodes[node].toObject().value("status").toString(),
+                            nodes[node].toObject().value("range").toString(),
+                            nodes[node].toObject().value("type").toString()
+                            )
+                        );
         }
         Q_EMIT nodesListChanged();
     }
@@ -89,18 +93,33 @@ bool TcpClient::findNodes(QString node, QJsonObject nodes)
 {
     for (int i = 0; i < dataList.count(); i++) {
         if (dataList[i]->property("name") == node) {
-            dataList.replace(i, new Nodes(node,
-                                          nodes[node].toObject().value("status").toString(),
-                                          nodes[node].toObject().value("range").toString()));
+            dataList.replace(i,
+                             new Nodes(
+                                 node,
+                                 nodes[node].toObject().value("status").toString(),
+                                 nodes[node].toObject().value("range").toString(),
+                                 nodes[node].toObject().value("type").toString())
+                             );
             return true;
         }
     }
     return false;
 }
 
-void TcpClient::setSendCommandNode(QString node)
+void TcpClient::setSendCommandNode(QJsonObject node)
 {
-    QJsonObject node_object,
+    QString name = node["name"].toString();
+    node.remove("name");
+
+    QJsonObject node_object, node_send;
+    node_object.insert(name, node);
+    node_send.insert("Node", node_object);
+
+    QJsonArray node_array;
+    node_array.push_back(node_send);
+
+    writeTcpData(&node_array);
+    /*QJsonObject node_object,
                 node_action;
     QJsonArray node_array;
 
@@ -108,5 +127,6 @@ void TcpClient::setSendCommandNode(QString node)
     node_action.insert("Node", node_object);
     node_array.push_back(node_action);
 
-    writeTcpData(&node_array);
+    qDebug() << node_array;/
+    //writeTcpData(&node_array);*/
 }

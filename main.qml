@@ -125,7 +125,7 @@ ApplicationWindow {
         tcpClient.server_port = settings.server_port;
         tcpClient.startConnection();
 
-        //checkConnection();
+        checkConnection();
         //checkSizeWidth();
     }
 
@@ -143,9 +143,7 @@ ApplicationWindow {
     Connections {
         target: window
         onIsConnectChanged: {
-            /*if(isConnect === true)
-                tcpClient.writeTcpData("Hello Server")*/
-            //checkConnection();
+            checkConnection();
         }
     }
 

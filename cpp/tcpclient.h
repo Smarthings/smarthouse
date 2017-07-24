@@ -31,7 +31,7 @@ class TcpClient : public QObject
 
     Q_PROPERTY(QStringList tcpStringList READ tcpStringList WRITE setTcpStringList NOTIFY tcpStringListChanged)
     Q_PROPERTY(QList<QObject*> nodesList READ nodesList WRITE setNodesList NOTIFY nodesListChanged)
-    Q_PROPERTY(QString sendCommandNode READ sendCommandNode WRITE setSendCommandNode NOTIFY sendCommandNodeChanged)
+    Q_PROPERTY(QJsonObject sendCommandNode READ sendCommandNode WRITE setSendCommandNode NOTIFY sendCommandNodeChanged)
     //Q_PROPERTY(QByteArray sendCommandNode READ sendCommandNode WRITE setSendCommandNode NOTIFY sendCommandNodeChanged)
 
 public:
@@ -60,7 +60,7 @@ public slots:
     void setNodesList(QList<QObject*> str) { dataList.clear(); Q_EMIT nodesListChanged(); }
     void getNodesFromServer(QJsonObject nodes);
     bool findNodes(QString node, QJsonObject nodes);
-    void setSendCommandNode(QString node);
+    void setSendCommandNode(QJsonObject node);
     //void setSendCommandNode(QString node, QString action);
 
 private slots:
@@ -93,8 +93,8 @@ private:
     bool nodesUpdate() { return nodes_update; }
     bool nodes_update = false;
 
-    QString sendCommandNode() { return sendcommand; }
-    QString sendcommand;
+    QJsonObject sendCommandNode() { return sendcommand; }
+    QJsonObject sendcommand;
 
     //QByteArray sendCommandNode() { return ""; }
 };

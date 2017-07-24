@@ -21,18 +21,18 @@ ScrollablePage {
 
         ListModel {
             id: appModel
-            ListElement { name: "Node 1"; status_node: 1; icon_type: ""; type_node: 00; }
-            ListElement { name: "Node 2"; status_node: 0; icon_type: "lamp"; type_node: 01; }
-            ListElement { name: "Node 3"; status_node: 50; icon_type: "fan"; type_node: 01; }
-            ListElement { name: "Node 4"; status_node: 0; icon_type: "lamp"; type_node: 00; }
-            ListElement { name: "Node 5"; status_node: 0; icon_type: "lamp"; type_node: 00; }
-            ListElement { name: "Node 6"; status_node: 0; icon_type: ""; type_node: 01; }
-            ListElement { name: "Node 7"; status_node: 0; icon_type: "lamp"; type_node: 00; }
-            ListElement { name: "Node 8"; status_node: 100; icon_type: "fan"; type_node: 01; }
-            ListElement { name: "Node 9"; status_node: 0; icon_type: "lamp"; type_node: 00; }
-            ListElement { name: "Node 10"; status_node: 0; icon_type: "lamp"; type_node: 00; }
-            ListElement { name: "Node 11"; status_node: 0; icon_type: ""; type_node: 01; }
-            ListElement { name: "Node 12"; status_node: 0; icon_type: "fan"; type_node: 01; }
+            ListElement { name: "Node 1"; status: 1; icon_type: ""; type: 00; }
+            ListElement { name: "Node 2"; status: 0; icon_type: "lamp"; type: 01; }
+            ListElement { name: "Node 3"; status: 50; icon_type: "fan"; type: 01; }
+            ListElement { name: "Node 4"; status: 0; icon_type: "lamp"; type: 00; }
+            ListElement { name: "Node 5"; status: 0; icon_type: "lamp"; type: 00; }
+            ListElement { name: "Node 6"; status: 0; icon_type: ""; type: 01; }
+            ListElement { name: "Node 7"; status: 0; icon_type: "lamp"; type: 00; }
+            ListElement { name: "Node 8"; status: 100; icon_type: "fan"; type: 01; }
+            ListElement { name: "Node 9"; status: 0; icon_type: "lamp"; type: 00; }
+            ListElement { name: "Node 10"; status: 0; icon_type: "lamp"; type: 00; }
+            ListElement { name: "Node 11"; status: 0; icon_type: ""; type: 01; }
+            ListElement { name: "Node 12"; status: 0; icon_type: "fan"; type: 01; }
         }
 
         GridView {
@@ -44,21 +44,20 @@ ScrollablePage {
 
             anchors.leftMargin: size_nodes
 
-            Component.onCompleted: {
-                //console.log(gridNodesList.cellWidth)
-            }
-
-            model: appModel
+            //model: appModel
+            model: tcpClient.nodesList
 
             delegate: Item {
                 id: item_content
                 width: gridNodesList.cellWidth -10
                 height: gridNodesList.cellHeight -10
 
+                property string icon_type: "lamp"
+
                 Rectangle {
                     id: rectangle_box
                     anchors.fill: parent
-                    color: (status_node > 0)? Qt.rgba(Material.accent.r,
+                    color: (model.modelData.range > 0)? Qt.rgba(Material.accent.r,
                                                       Material.accent.g,
                                                       Material.accent.b, 0.15) : background_nodes
                     radius: 10
@@ -78,7 +77,7 @@ ScrollablePage {
                                 id: smarticon
                                 iconName: (icon_type == "")? "microchip": icon_type
                                 iconSize: Math.min(item_block.width, item_block.height)
-                                //iconColor: (status_node == 0)? Material.foreground : Material.accent
+                                //iconColor: (status == 0)? Material.foreground : Material.accent
                                 itemWidth: parent.width
                                 itemHeight: parent.height
 
@@ -95,13 +94,15 @@ ScrollablePage {
                             Text {
                                 id: text_name
                                 anchors.centerIn: parent
-                                text: name
+                                text: model.modelData.name
+                                //text: name
                                 color: text_color
                                 font.weight: Font.Light
                                 font.pixelSize: 12
                             }
                             Text {
-                                text: text_node(status_node, type_node);
+                                text: text_node(model.modelData.range, model.modelData.type);
+                                //text: text_node(range, type);
                                 color: text_color
                                 font.weight: Font.Light
                                 font.pixelSize: 10
@@ -141,19 +142,28 @@ ScrollablePage {
                         anchors.fill: parent
 
                         onPressAndHold: {
-                            if (type_node == 0) {
-                                if (status_node > 0) {
-                                    status_node = 0
-                                } else {
-                                    status_node = 1
+                            if (model.modelData.status != 0) {
+                                if (model.modelData.type == 0) {
+                                    if (model.modelDatarange > 0) {
+                                        model.modelDatarange = 0
+                                    } else {
+                                        model.modelData.range = 1
+                                    }
                                 }
-                            }
-                            if (type_node == 1) {
-                                if (status_node > 0) {
-                                    status_node = 0
-                                } else {
-                                    status_node = 100
+                                if (model.modelData.type == 1) {
+                                    if (model.modelData.range > 0) {
+                                        model.modelData.range = 0
+                                    } else {
+                                        model.modelData.range = 100
+                                    }
                                 }
+                                var prepareRange = (model.modelData.range <= 1)? model.modelData.range: model.modelData.range -1;
+                                tcpClient.setSendCommandNode({
+                                                                 "name": model.modelData.name,
+                                                                 "action": {
+                                                                     "range": completeZero(prepareRange, 2)
+                                                                 }
+                                                             });
                             }
                         }
 
@@ -161,12 +171,13 @@ ScrollablePage {
                             stackView.push("qrc:/ui/NodePage.qml",
                                            {
                                                id: index,
-                                               name: name,
-                                               status_node: status_node,
-                                               type_node: type_node,
+                                               name: model.modelData.name,
+                                               status: model.modelData.status,
+                                               range: model.modelData.range,
+                                               type: model.modelData.type,
                                                icon_type: icon_type
                                            })
-                            window.header.title_page = name
+                            window.header.title_page = model.modelData.name
                         }
                     }
                 }
@@ -174,26 +185,26 @@ ScrollablePage {
         }
     }
 
-    function text_node (status_node, type_node)
+    function text_node (range, type)
     {
         var text = "";
-        if (status_node == 0) {
+        if (range == 0) {
             text = qsTr("OFF");
         } else {
-            if (type_node == 0) {
+            if (type == 0) {
                 text = qsTr("ON")
             }
-            if (type_node == 1) {
-                text = qsTr("ON") + " " + status_node + "%"
+            if (type == 1) {
+                text = qsTr("ON") + " " + range + "%"
             }
         }
         return text;
     }
 
-    function completeZero(str) {
-        while (str.length < 3)
+    function completeZero(str, length) {
+        while (str.length < length)
             str = "0" + str;
-        return str.toUtf8();
+        return str.toString();
     }
 }
 

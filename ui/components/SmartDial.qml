@@ -56,7 +56,7 @@ import QtGraphicalEffects 1.0
         width: dialWidth
         height: dialHeight
         anchors.centerIn: parent
-        value: status_node / 100
+        value: range / 100
 
         background: Rectangle {
             id: rectangle_background

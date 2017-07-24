@@ -13,9 +13,14 @@ ScrollablePage {
 
     property int id
     property string name: ""
-    property string status_node: ""
-    property string type_node: ""
+    property string status: ""
+    property string range: ""
+    property string type: ""
     property string icon_type: ""
+
+    Component.onCompleted: {
+        console.log(name, type);
+    }
 
     ColumnLayout {
         id: column_general
@@ -209,14 +214,14 @@ ScrollablePage {
                                     id: column_switch
                                     width: parent.width
                                     height: parent.height
-                                    enabled: (type_node == 0)? true: false
-                                    visible: (type_node == 0)? true: false
+                                    enabled: (tcpClient.nodesList[id].type == 0)? true: false
+                                    visible: (tcpClient.nodesList[id].type == 0)? true: false
 
                                     SmartSwitch {
                                         id: smartswitch
                                         switchWidth: 100
                                         switchHeight: 100
-                                        setValue: parseInt(status_node)
+                                        setValue: parseInt(tcpClient.nodesList[id].range)
 
                                         itemWidth: parent.width
                                         itemHeight: parent.height
@@ -227,12 +232,12 @@ ScrollablePage {
                                     id: column_range
                                     width: parent.width
                                     height: parent.height
-                                    enabled: (type_node == 01)? true : false
-                                    visible: (type_node == 01)? true : false
+                                    enabled: (tcpClient.nodesList[id].type == 1)? true : false
+                                    visible: (tcpClient.nodesList[id].type == 1)? true : false
 
                                     SmartDial {
                                         id: smartdial
-                                        setValue: parseInt(status_node)
+                                        setValue: parseInt(tcpClient.nodesList[id].range)
                                         dialWidth: 100
                                         dialHeight: 100
 
@@ -335,9 +340,15 @@ ScrollablePage {
                 smarttumblerstopwatch.getMinutes == 0 &&
                 smarttumblerstopwatch.getSeconds == 0) {
             var value = (smartdial._dial.value * 100).toFixed(0);
-            if (value != status_node) {
-                status_node = value;
-                console.log(status_node);
+            if (value != tcpClient.nodesList[id].range) {
+                tcpClient.nodesList[id].range = value;
+                var prepareRange = (tcpClient.nodesList[id].range <= 1)? tcpClient.nodesList[id].range: tcpClient.nodesList[id].range -1;
+                tcpClient.setSendCommandNode({
+                                                 "name": tcpClient.nodesList[id].name,
+                                                 "action": {
+                                                     "range": completeZero(prepareRange, 2)
+                                                 }
+                                             });
             }
         }
     }
@@ -348,9 +359,9 @@ ScrollablePage {
                 smarttumblerstopwatch.getMinutes == 0 &&
                 smarttumblerstopwatch.getSeconds == 0) {
             var value = smartswitch._switch.checked
-            if (value != status_node) {
-                status_node = value;
-                console.log(status_node);
+            if (value != tcpClient.nodesList[id].range) {
+                tcpClient.nodesList[id].range = value;
+                console.log(tcpClient.nodesList[id].range);
             }
         }
     }
