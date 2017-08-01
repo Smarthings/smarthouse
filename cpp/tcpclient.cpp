@@ -119,14 +119,4 @@ void TcpClient::setSendCommandNode(QJsonObject node)
     node_array.push_back(node_send);
 
     writeTcpData(&node_array);
-    /*QJsonObject node_object,
-                node_action;
-    QJsonArray node_array;
-
-    node_object.insert("action", node);
-    node_action.insert("Node", node_object);
-    node_array.push_back(node_action);
-
-    qDebug() << node_array;/
-    //writeTcpData(&node_array);*/
 }

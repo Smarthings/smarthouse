@@ -277,7 +277,46 @@ ScrollablePage {
                                              Material.Green
 
                     onClicked: {
-                        column_stopwatch.timeseconds =
+                        console.log("Button stopwatch Clicked");
+                        column_stopwatch.timeseconds = (
+                            getTimeSeconds(
+                                "1970-01-01 "
+                                + completeZero(smarttumblerstopwatch.getHours, 2) + ":"
+                                + completeZero(smarttumblerstopwatch.getMinutes, 2) + ":"
+                                + completeZero(smarttumblerstopwatch.getSeconds, 2)
+                            )
+                        );
+
+                        var value = (smartdial._dial.value * 100).toFixed(0);
+                        if (value != tcpClient.nodesList[id].range) {
+                            tcpClient.nodesList[id].range = value;
+                            var prepareRange = (tcpClient.nodesList[id].range <= 1)? tcpClient.nodesList[id].range: tcpClient.nodesList[id].range -1;
+                            var sendCommand = {
+                                "name": tcpClient.nodesList[id].name,
+                                "stopwatch": {
+                                    "time": column_stopwatch.timeseconds,
+                                    "action": {
+                                        "range": completeZero(prepareRange, 2)
+                                    }
+                                }
+                            };
+                            tcpClient.setSendCommandNode(sendCommand);
+                        }
+
+                        /*var prepareRange = (tcpClient.nodesList[id].range <= 1)? tcpClient.nodesList[id].range: tcpClient.nodesList[id].range -1;
+                        var sendCommand = {
+                            "name": tcpClient.nodesList[id].name,
+                            "stopwatch": {
+                                "time": column_stopwatch.timeseconds,
+                                "action": {
+                                    "range": completeZero(prepareRange, 2)
+                                }
+                            }
+                        };
+                        tcpClient.setSendCommandNode(sendCommand);*/
+
+
+                        /*column_stopwatch.timeseconds =
                                 getTimeSeconds(
                                     "1970-01-01 "
                                     +completeZero(smarttumblerstopwatch.getHours, 2)+":"
@@ -293,7 +332,7 @@ ScrollablePage {
                         } else {
                             timer_stopwatch.running = true;
                             timer_stopwatch.repeat = true;
-                        }
+                        }*/
                     }
                 }
 
