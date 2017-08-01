@@ -129,15 +129,6 @@ ScrollablePage {
                             }
                         }
                     }
-                    DropShadow {
-                        anchors.fill: rectangle_server_address
-                        horizontalOffset: 1
-                        verticalOffset: 1
-                        radius: 2.0
-                        samples: 17
-                        color: shadow_color
-                        source: rectangle_server_address
-                    }
                 }
                 Item {
                     width: parent.width
@@ -178,15 +169,6 @@ ScrollablePage {
                                 dialog_server_port.dialog.open()
                             }
                         }
-                    }
-                    DropShadow {
-                        anchors.fill: rectangle_server_port
-                        horizontalOffset: 1
-                        verticalOffset: 1
-                        radius: 2.0
-                        samples: 17
-                        color: shadow_color
-                        source: rectangle_server_port
                     }
                 }
 
@@ -269,15 +251,6 @@ ScrollablePage {
                         ListModel {
                             id: model_messages
                         }
-                    }
-                    DropShadow {
-                        anchors.fill: rectangle_server_messages
-                        horizontalOffset: 1
-                        verticalOffset: 1
-                        radius: 2.0
-                        samples: 17
-                        color: shadow_color
-                        source: rectangle_server_messages
                     }
                 }
             }
