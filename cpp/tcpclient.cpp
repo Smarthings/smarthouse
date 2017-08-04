@@ -57,6 +57,9 @@ void TcpClient::readTcpData()
                 if (key == "Nodes") {
                     getNodesFromServer(json_objects.toObject().value("Nodes").toObject());
                 }
+                if (key == "Stopwatch") {
+                    getStopwatchFromServer(json_objects.toObject().value("Stopwatch").toObject());
+                }
             }
         }
     } else {
@@ -119,4 +122,15 @@ void TcpClient::setSendCommandNode(QJsonObject node)
     node_array.push_back(node_send);
 
     writeTcpData(&node_array);
+}
+
+void TcpClient::getStopwatchFromServer(QJsonObject nodes)
+{
+    QStringList nodes_list = nodes.keys();
+    for (const QString &node: nodes_list) {
+        qDebug() << node <<
+                    nodes[node].toObject().value("action").toObject() <<
+                    nodes[node].toObject().value("time").toInt() <<
+                    nodes[node].toObject().value("timestamp").toObject();
+    }
 }

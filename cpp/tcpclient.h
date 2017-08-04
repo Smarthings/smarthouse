@@ -61,6 +61,7 @@ public slots:
     void getNodesFromServer(QJsonObject nodes);
     bool findNodes(QString node, QJsonObject nodes);
     void setSendCommandNode(QJsonObject node);
+    void getStopwatchFromServer(QJsonObject nodes);
     //void setSendCommandNode(QString node, QString action);
 
 private slots:
