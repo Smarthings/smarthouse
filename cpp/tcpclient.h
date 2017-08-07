@@ -19,7 +19,7 @@
 #include <QJsonObject>
 
 #include "nodes.h"
-
+#include "stopwatch.h"
 
 class TcpClient : public QObject
 {
@@ -31,6 +31,7 @@ class TcpClient : public QObject
 
     Q_PROPERTY(QStringList tcpStringList READ tcpStringList WRITE setTcpStringList NOTIFY tcpStringListChanged)
     Q_PROPERTY(QList<QObject*> nodesList READ nodesList WRITE setNodesList NOTIFY nodesListChanged)
+    Q_PROPERTY(QList<QObject*> stopwatchList READ stopwatchList NOTIFY stopwatchListChanged)
     Q_PROPERTY(QJsonObject sendCommandNode READ sendCommandNode WRITE setSendCommandNode NOTIFY sendCommandNodeChanged)
     //Q_PROPERTY(QByteArray sendCommandNode READ sendCommandNode WRITE setSendCommandNode NOTIFY sendCommandNodeChanged)
 
@@ -44,6 +45,7 @@ Q_SIGNALS:
     void error_connChanged();
     void tcpStringListChanged();
     void nodesListChanged();
+    void stopwatchListChanged();
     void nodesUpdateChanged();
     void sendCommandNodeChanged();
 
@@ -88,8 +90,11 @@ private:
 
     QTcpSocket *tcpSocket;
 
-    QList<QObject*> nodesList() { return dataList; };
+    QList<QObject*> nodesList() { return dataList; }
     QList<QObject*> dataList;
+
+    QList<QObject*> stopwatchList() { return m_stopwatch; }
+    QList<QObject*> m_stopwatch;
 
     bool nodesUpdate() { return nodes_update; }
     bool nodes_update = false;

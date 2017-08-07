@@ -18,10 +18,6 @@ ScrollablePage {
     property string type: ""
     property string icon_type: ""
 
-    Component.onCompleted: {
-        console.log(name, type);
-    }
-
     ColumnLayout {
         id: column_general
         anchors.fill: parent

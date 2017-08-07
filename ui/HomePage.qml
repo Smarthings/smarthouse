@@ -13,6 +13,8 @@ ScrollablePage {
     property int numberNodes: tcpClient.tcpStringList.length
     property int updateNodes: tcpClient.nodesUpdate*/
 
+    property variant stopwatch: tcpClient.stopwatchList
+
     Rectangle {
         id: rectangle_root
         width: parent.width
@@ -181,6 +183,13 @@ ScrollablePage {
                         }
                     }
                 }
+            }
+        }
+
+        Connections {
+            target: homePage
+            onStopwatchChanged: {
+                console.log(stopwatch[0].name, stopwatch[0].range, stopwatch[0].start, stopwatch[0].end);
             }
         }
     }

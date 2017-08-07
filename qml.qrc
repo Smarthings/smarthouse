@@ -26,5 +26,9 @@
         <file>ui/components/SmartSwitch.qml</file>
         <file>ui/components/SmartDial.qml</file>
         <file>ui/components/SmartTumblerStopWatch.qml</file>
+        <file>cpp/nodes.cpp</file>
+        <file>cpp/nodes.h</file>
+        <file>cpp/stopwatch.cpp</file>
+        <file>cpp/stopwatch.h</file>
     </qresource>
 </RCC>
