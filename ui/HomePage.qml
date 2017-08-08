@@ -93,7 +93,82 @@ ScrollablePage {
                             width: parent.width
                             height: parent.height /2
 
-                            Text {
+                            Column {
+                                id: column_footer
+                                anchors.centerIn: parent
+
+                                Text {
+                                    id: text_name
+                                    text: model.modelData.name
+                                    color: text_color
+                                    font.weight: Font.Light
+                                    font.pixelSize: 13
+                                }
+                            }
+
+                            Row {
+                                anchors.top: column_footer.bottom
+                                anchors.topMargin: 4
+                                width: parent.width
+
+                                Item {
+                                    id: item_footer_stopwatch
+                                    width: parent.width /2
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 5
+                                    visible: false
+
+                                    SmartIcon {
+                                        id: icon_footer_block
+                                        iconName: "clock"
+                                        iconSize: 12
+                                        iconColor: text_color
+                                        opacity: 0.4
+                                    }
+                                    Text {
+                                        id: text_footer_block
+                                        text: "(00)"
+                                        font.weight: Font.Light
+                                        font.pixelSize: 10
+                                        opacity: 0.4
+                                        color: text_color
+                                        anchors.left: icon_footer_block.right
+                                    }
+                                }
+                                Item {
+                                    width: parent.width /2
+                                    anchors.right: parent.right
+                                    Text {
+                                        width: parent.width -5
+                                        text: text_node(model.modelData.range, model.modelData.type)
+                                        font.weight: Font.Light
+                                        font.pixelSize: 10
+                                        color: text_color
+                                        opacity: 0.4
+                                        horizontalAlignment: Text.AlignRight
+                                    }
+                                }
+
+                                /*Text {
+                                    text: "Text"
+                                    font.weight: Font.Light
+                                    font.pixelSize: 10
+                                    opacity: 0.4
+
+                                    width: parent.width /2
+                                }
+                                Text {
+                                    text: text_node(model.modelData.range, model.modelData.type);
+                                    font.weight: Font.Light
+                                    font.pixelSize: 10
+                                    opacity: 0.4
+
+                                    width: (parent.width /2) - 10
+                                    horizontalAlignment: Text.AlignRight
+                                }*/
+                            }
+
+                            /*Text {
                                 id: text_name
                                 anchors.centerIn: parent
                                 text: model.modelData.name
@@ -113,7 +188,7 @@ ScrollablePage {
                                 anchors.bottomMargin: 5
                                 anchors.right: parent.right
                                 anchors.rightMargin: 5
-                            }
+                            }*/
                         }
                     }
 
@@ -189,9 +264,30 @@ ScrollablePage {
         Connections {
             target: homePage
             onStopwatchChanged: {
-                console.log(stopwatch[0].name, stopwatch[0].range, stopwatch[0].start, stopwatch[0].end);
+                getStopwatch();
+                //console.log(stopwatch[0].name, stopwatch[0].range, stopwatch[0].start, stopwatch[0].end);
             }
         }
+    }
+
+    function getStopwatch()
+    {
+        for (var i = 0; i < stopwatch.length; i++) {
+            var key = search(stopwatch[i].name, tcpClient.nodesList, "name");
+            //console.log(gridNodesList.model[key].name);
+            //gridNodesList.model[key].item_footer_stopwatch = true;
+        }
+    }
+
+    function search(str, list, key)
+    {
+        console.log("search", str, key);
+        for (var i = 0; i < list.length; i++) {
+            if (list[i][key] == str) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     function text_node (range, type)
