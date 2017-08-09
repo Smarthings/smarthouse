@@ -18,17 +18,23 @@ VariantTeste::VariantTeste(QObject *parent) : QObject(parent)
     list.append(objs2.toVariantMap());
 
     QString str_time_start = QString::number(QDateTime::currentDateTime().toTime_t());
+    QString str_time_end = QString::number(QDateTime::currentDateTime().toTime_t() + 500);
 
     qlist_variant.append(objs);
+    qlist_variant.append(objs2);
 
-    qDebug() << addNodes("001", "start", str_time_start);
-    qDebug() << qlist_variant;
+    addNodes("001", "start", str_time_start);
+    addNodes("001", "end", str_time_end);
+
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(addAttrNode()));
+    timer->start(5000);
 }
 
 bool VariantTeste::addNodes(QString node, QString key, QString value)
 {
     QJsonObject obj;
-    for (uint i = 0; i < qlist_variant.count(); i++) {
+    for (int i = 0; i < qlist_variant.count(); i++) {
         if (qlist_variant[i].toJsonObject().value("name").toString() == node) {
             if (qlist_variant[i].toJsonObject().contains("range")) {
                 obj.insert("range", qlist_variant[i].toJsonObject().value("range").toString());
@@ -42,11 +48,29 @@ bool VariantTeste::addNodes(QString node, QString key, QString value)
             if (qlist_variant[i].toJsonObject().contains("type")) {
                 obj.insert("type", qlist_variant[i].toJsonObject().value("type").toString());
             }
+            if (qlist_variant[i].toJsonObject().contains("start")) {
+                obj.insert("start", qlist_variant[i].toJsonObject().value("start").toString());
+            }
+            if (qlist_variant[i].toJsonObject().contains("end")) {
+                obj.insert("end", qlist_variant[i].toJsonObject().value("end").toString());
+            }
+
             obj.insert("name", qlist_variant[i].toJsonObject().value("name").toString());
             obj.insert(key, value);
             qlist_variant.replace(i, obj);
+
+            emit qlistvariantChanged();
             return true;
         }
     }
     return true;
+}
+
+void VariantTeste::addAttrNode()
+{
+    QString str_time_start = QString::number(QDateTime::currentDateTime().toTime_t());
+    QString str_time_end = QString::number(QDateTime::currentDateTime().toTime_t() + 500);
+
+    addNodes("002", "start", str_time_start);
+    addNodes("002", "end", str_time_end);
 }

@@ -9,6 +9,7 @@
 #include <QJsonValue>
 #include <QDebug>
 #include <QDateTime>
+#include <QTimer>
 
 class VariantTeste : public QObject
 {
@@ -29,6 +30,7 @@ Q_SIGNALS:
     void qlistvariantChanged();
 
 public slots:
+    void addAttrNode();
 
 private:
     QVariantMap variant() { return map; }

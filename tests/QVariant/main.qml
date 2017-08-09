@@ -14,20 +14,23 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        //func_variant();
+        func_variant();
     }
 
     function func_variant()
     {
-        console.log("List")
-        for (var list in variant.lists) {
-            console.log(list, variant.lists[list].name, variant.lists[list].range, variant.lists[list].start);
-        }
+        console.log("QList");
+        console.log(variant.qlistvariant);
 
-        console.log("Map")
+        /*console.log("List")
+        for (var list in variant.lists) {
+            console.log(list, variant.lists[list].name, variant.lists[list].range, variant.lists[list].type);
+        }*/
+
+        /*console.log("Map")
         for (var node in variant.variant) {
             console.log(variant.variant[node].name, variant.variant[node].range);
-        }
+        }*/
     }
 
     ListModel {
@@ -47,7 +50,7 @@ ApplicationWindow {
             anchors.fill: parent
             focus: true
 
-            model: variant.lists
+            model: variant.qlistvariant
 
             delegate: Item {
                 id: item_content
@@ -59,8 +62,19 @@ ApplicationWindow {
                     anchors.fill: parent
                     color: "#999"
 
-                    Text {
-                        text: model.modelData.name
+                    Column {
+                        anchors.fill: parent
+                        Text {
+                            text: model.modelData.name
+                        }
+                        Text {
+                            text: (model.modelData.start)? model.modelData.start : ""
+                            visible: (model.modelData.start)? true : false
+                        }
+                        Text {
+                            text: (model.modelData.end)? model.modelData.end : ""
+                            visible: (model.modelData.end)? true : false
+                        }
                     }
                 }
             }
