@@ -78,6 +78,13 @@ void TcpClient::getNodesFromServer(QJsonObject nodes)
 {
     QStringList nodes_list = nodes.keys();
     for (const QString &node: nodes_list) {
+        nodes[node].toObject().insert("name", node);
+        if (!findNodes(node, nodes[node].toObject())) {
+            listNodes.append(addNode(node, nodes[node].toObject()).toVariantMap());
+        }
+        Q_EMIT getNodesChanged();
+    }
+    /*for (const QString &node: nodes_list) {
         if (!findNodes(node, nodes)) {
             dataList.append(
                         new Nodes(
@@ -89,12 +96,37 @@ void TcpClient::getNodesFromServer(QJsonObject nodes)
                         );
         }
         Q_EMIT nodesListChanged();
-    }
+    }*/
 }
 
-bool TcpClient::findNodes(QString node, QJsonObject nodes)
+QJsonObject TcpClient::addNode(QString node, QJsonObject node_list)
 {
-    for (int i = 0; i < dataList.count(); i++) {
+    QJsonObject obj;
+    QStringList keys = node_list.keys();
+    obj.insert("name", node);
+    for (const QString &key: keys) {
+        obj.insert(key, node_list.value(key).toString());
+    }
+    return obj;
+}
+
+bool TcpClient::findNodes(QString node, QJsonObject node_list)
+{
+    QJsonObject obj;
+    for (int i = 0; i < listNodes.count(); i++) {
+        if (listNodes[i].toJsonObject().value("name").toString() == node) {
+            for (const QString &field: fields) {
+                if (node_list.contains(field)) {
+                    obj.insert(field, node_list.value(field).toString());
+                } else if (listNodes[i].toJsonObject().contains(field)) {
+                    obj.insert(field, listNodes[i].toJsonObject().value(field).toString());
+                }
+            }
+            listNodes.replace(i, obj.toVariantMap());
+            return true;
+        }
+    }
+    /*for (int i = 0; i < dataList.count(); i++) {
         if (dataList[i]->property("name") == node) {
             dataList.replace(i,
                              new Nodes(
@@ -105,7 +137,7 @@ bool TcpClient::findNodes(QString node, QJsonObject nodes)
                              );
             return true;
         }
-    }
+    }*/
     return false;
 }
 

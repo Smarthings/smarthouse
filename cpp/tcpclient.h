@@ -7,6 +7,7 @@
 #include <QProcess>
 #include <QDebug>
 #include <QList>
+#include <QVariant>
 
 #include <qqmlengine.h>
 #include <qqmlcontext.h>
@@ -31,6 +32,7 @@ class TcpClient : public QObject
 
     Q_PROPERTY(QStringList tcpStringList READ tcpStringList WRITE setTcpStringList NOTIFY tcpStringListChanged)
     Q_PROPERTY(QList<QObject*> nodesList READ nodesList WRITE setNodesList NOTIFY nodesListChanged)
+    Q_PROPERTY(QList<QVariant> getNodes READ getNodes NOTIFY getNodesChanged)
     Q_PROPERTY(QList<QObject*> stopwatchList READ stopwatchList NOTIFY stopwatchListChanged)
     Q_PROPERTY(QJsonObject sendCommandNode READ sendCommandNode WRITE setSendCommandNode NOTIFY sendCommandNodeChanged)
     //Q_PROPERTY(QByteArray sendCommandNode READ sendCommandNode WRITE setSendCommandNode NOTIFY sendCommandNodeChanged)
@@ -48,6 +50,7 @@ Q_SIGNALS:
     void stopwatchListChanged();
     void nodesUpdateChanged();
     void sendCommandNodeChanged();
+    void getNodesChanged();
 
 public slots:
     void startConnection();
@@ -61,7 +64,8 @@ public slots:
 
     void setNodesList(QList<QObject*> str) { dataList.clear(); Q_EMIT nodesListChanged(); }
     void getNodesFromServer(QJsonObject nodes);
-    bool findNodes(QString node, QJsonObject nodes);
+    QJsonObject addNode(QString node, QJsonObject node_list);
+    bool findNodes(QString node, QJsonObject node_list);
     void setSendCommandNode(QJsonObject node);
     void getStopwatchFromServer(QJsonObject nodes);
     //void setSendCommandNode(QString node, QString action);
@@ -93,6 +97,9 @@ private:
     QList<QObject*> nodesList() { return dataList; }
     QList<QObject*> dataList;
 
+    QList<QVariant> getNodes() { return listNodes; }
+    QList<QVariant> listNodes;
+
     QList<QObject*> stopwatchList() { return m_stopwatch; }
     QList<QObject*> m_stopwatch;
 
@@ -102,6 +109,7 @@ private:
     QJsonObject sendCommandNode() { return sendcommand; }
     QJsonObject sendcommand;
 
+    QStringList fields = {"name", "range", "status", "type", "start", "end", "to_range"};
     //QByteArray sendCommandNode() { return ""; }
 };
 

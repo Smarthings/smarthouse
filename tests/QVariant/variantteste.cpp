@@ -14,6 +14,8 @@ VariantTeste::VariantTeste(QObject *parent) : QObject(parent)
     map.insert("001", objs.toVariantMap());
     map.insert("002", objs2.toVariantMap());
 
+    qDebug() << map;
+
     list.append(objs.toVariantMap());
     list.append(objs2.toVariantMap());
 
