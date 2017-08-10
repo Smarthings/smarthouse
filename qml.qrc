@@ -30,5 +30,6 @@
         <file>cpp/nodes.h</file>
         <file>cpp/stopwatch.cpp</file>
         <file>cpp/stopwatch.h</file>
+        <file>ui/components/SmartNode.qml</file>
     </qresource>
 </RCC>

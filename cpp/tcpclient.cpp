@@ -114,12 +114,12 @@ bool TcpClient::findNodes(QString node, QJsonObject node_list)
 {
     QJsonObject obj;
     for (int i = 0; i < listNodes.count(); i++) {
-        if (listNodes[i].toJsonObject().value("name").toString() == node) {
+        if (listNodes[i].toMap().take("name").toString() == node) {
             for (const QString &field: fields) {
                 if (node_list.contains(field)) {
                     obj.insert(field, node_list.value(field).toString());
-                } else if (listNodes[i].toJsonObject().contains(field)) {
-                    obj.insert(field, listNodes[i].toJsonObject().value(field).toString());
+                } else if (listNodes[i].toMap().contains(field)) {
+                    obj.insert(field, listNodes[i].toMap().take(field).toString());
                 }
             }
             listNodes.replace(i, obj.toVariantMap());
