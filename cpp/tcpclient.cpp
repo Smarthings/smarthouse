@@ -84,19 +84,6 @@ void TcpClient::getNodesFromServer(QJsonObject nodes)
         }
         Q_EMIT getNodesChanged();
     }
-    /*for (const QString &node: nodes_list) {
-        if (!findNodes(node, nodes)) {
-            dataList.append(
-                        new Nodes(
-                            node,
-                            nodes[node].toObject().value("status").toString(),
-                            nodes[node].toObject().value("range").toString(),
-                            nodes[node].toObject().value("type").toString()
-                            )
-                        );
-        }
-        Q_EMIT nodesListChanged();
-    }*/
 }
 
 QJsonObject TcpClient::addNode(QString node, QJsonObject node_list)
@@ -147,18 +134,6 @@ bool TcpClient::findNodes(QString node, QJsonObject node_list)
             return true;
         }
     }
-    /*for (int i = 0; i < dataList.count(); i++) {
-        if (dataList[i]->property("name") == node) {
-            dataList.replace(i,
-                             new Nodes(
-                                 node,
-                                 nodes[node].toObject().value("status").toString(),
-                                 nodes[node].toObject().value("range").toString(),
-                                 nodes[node].toObject().value("type").toString())
-                             );
-            return true;
-        }
-    }*/
     return false;
 }
 

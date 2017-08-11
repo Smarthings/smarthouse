@@ -278,49 +278,68 @@ ScrollablePage {
                                              Material.Green
 
                     onClicked: {
-
+                        var time = getTimeSeconds(
+                            "1970-01-01 "
+                            + completeZero(smarttumblerstopwatch.getHours, 2) + ":"
+                            + completeZero(smarttumblerstopwatch.getMinutes, 2) + ":"
+                            + completeZero(smarttumblerstopwatch.getSeconds, 2)
+                        );
+                        sendCommandStopwatchNode(time);
                     }
                 }
             }
         }
 
         Connections {
+            enabled: (tcpClient.getNodes[id].type == 1)? true : false
             target: smartswitch._switch
-            onCheckedChanged: getChangedSwitch();
+            onCheckedChanged: getChangedSwitchNode();
         }
 
         Connections {
+            enabled: (tcpClient.getNodes[id].type == 2)? true : false
             target: smartdial._dial
-            onPressedChanged: getChangeDial();
+            onPressedChanged: getChangeDialNode();
         }
     }
 
-    function getChangedSwitch()
+    function sendCommandStopwatchNode(time)
+    {
+
+    }
+
+    function sendCommandRangeNode(value)
+    {
+        tcpClient.setSendCommandNode({
+             "name": tcpClient.getNodes[id].name,
+             "action": {
+                 "range": completeZero(value, 2)
+             }
+         });
+    }
+
+    function getChangedSwitchNode()
     {
         var value = (smartswitch._switch.checked)? "100" : "00";
         if (value != tcpClient.getNodes[id].range) {
             var prepareRange = (value == "100")? "99" : "00";
-            tcpClient.setSendCommandNode({
-                 "name": tcpClient.getNodes[id].name,
-                 "action": {
-                     "range": completeZero(value, 2)
-                 }
-             });
+            sendCommandRangeNode(prepareRange);
         }
     }
 
-    function getChangeDial()
+    function getChangeDialNode()
     {
         var value = (smartdial._dial.value * 100).toFixed(0);
         if (value != tcpClient.getNodes[id].range) {
             var prepareRange = (value <= 1)? value : value -1;
-            tcpClient.setSendCommandNode({
-                 "name": tcpClient.getNodes[id].name,
-                 "action": {
-                     "range": completeZero(prepareRange, 2)
-                 }
-             });
+            sendCommandRangeNode(prepareRange);
         }
+    }
+
+    function getTimeSeconds(str)
+    {
+        var time = new Date(str + " -0000");
+        return time.getTime() /1000;
     }
 
     function completeZero(str, length)
