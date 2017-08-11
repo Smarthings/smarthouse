@@ -122,7 +122,7 @@ ScrollablePage {
                     Column {
                         id: column_stopwatch
                         width: parent.width
-                        height: smarttumblerstopwatch.height /*+ text_stopwatch.height */ + 10
+                        height: smarttumblerstopwatch.height + 10
                         spacing: 5
 
                         property int hours: smarttumblerstopwatch.getHours;
@@ -210,14 +210,14 @@ ScrollablePage {
                                     id: column_switch
                                     width: parent.width
                                     height: parent.height
-                                    enabled: (tcpClient.nodesList[id].type == 0)? true: false
-                                    visible: (tcpClient.nodesList[id].type == 0)? true: false
+                                    enabled: (tcpClient.getNodes[id].type == 0)? true: false
+                                    visible: (tcpClient.getNodes[id].type == 0)? true: false
 
                                     SmartSwitch {
                                         id: smartswitch
                                         switchWidth: 100
                                         switchHeight: 100
-                                        setValue: parseInt(tcpClient.nodesList[id].range)
+                                        setValue: parseInt(tcpClient.getNodes[id].range)
 
                                         itemWidth: parent.width
                                         itemHeight: parent.height
@@ -228,12 +228,12 @@ ScrollablePage {
                                     id: column_range
                                     width: parent.width
                                     height: parent.height
-                                    enabled: (tcpClient.nodesList[id].type == 1)? true : false
-                                    visible: (tcpClient.nodesList[id].type == 1)? true : false
+                                    enabled: (tcpClient.getNodes[id].type == 1)? true : false
+                                    visible: (tcpClient.getNodes[id].type == 1)? true : false
 
                                     SmartDial {
                                         id: smartdial
-                                        setValue: parseInt(tcpClient.nodesList[id].range)
+                                        setValue: parseInt(tcpClient.getNodes[id].range)
                                         dialWidth: 100
                                         dialHeight: 100
 
@@ -284,11 +284,11 @@ ScrollablePage {
                         );
 
                         var value = (smartdial._dial.value * 100).toFixed(0);
-                        if (value != tcpClient.nodesList[id].range) {
-                            tcpClient.nodesList[id].range = value;
-                            var prepareRange = (tcpClient.nodesList[id].range <= 1)? tcpClient.nodesList[id].range: tcpClient.nodesList[id].range -1;
+                        if (value != tcpClient.getNodes[id].range) {
+                            tcpClient.getNodes[id].range = value;
+                            var prepareRange = (tcpClient.getNodes[id].range <= 1)? tcpClient.getNodes[id].range: tcpClient.getNodes[id].range -1;
                             var sendCommand = {
-                                "name": tcpClient.nodesList[id].name,
+                                "name": tcpClient.getNodes[id].name,
                                 "stopwatch": {
                                     "time": column_stopwatch.timeseconds,
                                     "action": {
@@ -298,37 +298,6 @@ ScrollablePage {
                             };
                             tcpClient.setSendCommandNode(sendCommand);
                         }
-
-                        /*var prepareRange = (tcpClient.nodesList[id].range <= 1)? tcpClient.nodesList[id].range: tcpClient.nodesList[id].range -1;
-                        var sendCommand = {
-                            "name": tcpClient.nodesList[id].name,
-                            "stopwatch": {
-                                "time": column_stopwatch.timeseconds,
-                                "action": {
-                                    "range": completeZero(prepareRange, 2)
-                                }
-                            }
-                        };
-                        tcpClient.setSendCommandNode(sendCommand);*/
-
-
-                        /*column_stopwatch.timeseconds =
-                                getTimeSeconds(
-                                    "1970-01-01 "
-                                    +completeZero(smarttumblerstopwatch.getHours, 2)+":"
-                                    +completeZero(smarttumblerstopwatch.getMinutes, 2)+":"
-                                    +completeZero(smarttumblerstopwatch.getSeconds, 2)
-                                    +" -0000"
-                                    );
-
-                        if (timer_stopwatch.running == true) {
-                            timer_stopwatch.running = false;
-                            timer_stopwatch.repeat = false;
-                            resetStopwatch();
-                        } else {
-                            timer_stopwatch.running = true;
-                            timer_stopwatch.repeat = true;
-                        }*/
                     }
                 }
 
@@ -375,11 +344,11 @@ ScrollablePage {
                 smarttumblerstopwatch.getMinutes == 0 &&
                 smarttumblerstopwatch.getSeconds == 0) {
             var value = (smartdial._dial.value * 100).toFixed(0);
-            if (value != tcpClient.nodesList[id].range) {
-                tcpClient.nodesList[id].range = value;
-                var prepareRange = (tcpClient.nodesList[id].range <= 1)? tcpClient.nodesList[id].range: tcpClient.nodesList[id].range -1;
+            if (value != tcpClient.getNodes[id].range) {
+                tcpClient.getNodes[id].range = value;
+                var prepareRange = (tcpClient.getNodes[id].range <= 1)? tcpClient.getNodes[id].range: tcpClient.getNodes[id].range -1;
                 tcpClient.setSendCommandNode({
-                                                 "name": tcpClient.nodesList[id].name,
+                                                 "name": tcpClient.getNodes[id].name,
                                                  "action": {
                                                      "range": completeZero(prepareRange, 2)
                                                  }
@@ -394,9 +363,9 @@ ScrollablePage {
                 smarttumblerstopwatch.getMinutes == 0 &&
                 smarttumblerstopwatch.getSeconds == 0) {
             var value = smartswitch._switch.checked
-            if (value != tcpClient.nodesList[id].range) {
-                tcpClient.nodesList[id].range = value;
-                console.log(tcpClient.nodesList[id].range);
+            if (value != tcpClient.getNodes[id].range) {
+                tcpClient.getNodes[id].range = value;
+                console.log(tcpClient.getNodes[id].range);
             }
         }
     }

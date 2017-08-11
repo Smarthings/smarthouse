@@ -23,10 +23,6 @@ Item {
     width: (itemWidth > 0)? itemWidth: parent.width
     height: (itemHeight > 0)? itemHeight: 100
 
-    Component.onCompleted: {
-        console.log(1.0 - Math.abs(Tumbler.displacement), tumbler_hours.visibleItemCount)
-    }
-
     Component {
         id: component_text_delegate
 

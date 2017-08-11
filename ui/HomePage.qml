@@ -63,27 +63,24 @@ ScrollablePage {
                     onPressAndHold: {
                         var range_value;
                         if (model.modelData.status != 0) {
-                            if (model.modelData.type == 0) {
-                                if (model.modelData.range > 0) {
-                                    range_value = 0
-                                } else {
-                                    range_value = 1
-                                }
-                            }
-                            if (model.modelData.type == 1) {
-                                if (model.modelData.range > 0) {
-                                    range_value = 0
-                                } else {
-                                    range_value = 99
-                                }
+                            if (model.modelData.range > 0) {
+                                range_value = 0
+                            } else {
+                                range_value = 99
                             }
                             tcpClient.setSendCommandNode({
-                                                             "name": model.modelData.name,
-                                                             "action": {
-                                                                 "range": completeZero(range_value, 2)
-                                                             }
-                                                         });
+                                "name": model.modelData.name,
+                                "action": {
+                                    "range": completeZero(range_value, 2)
+                                }
+                            });
                         }
+                    }
+
+                    onClicked: {
+                        stackView.push("qrc:/ui/Node.qml", {id: index})
+                        //stackView.push("qrc:/ui/NodePage.qml", {id: index})
+                        window.header.title_page = model.modelData.name
                     }
                 }
             }
@@ -339,10 +336,10 @@ ScrollablePage {
         if (range == 0) {
             text = qsTr("OFF");
         } else {
-            if (type == 0) {
+            if (type == 1) {
                 text = qsTr("ON")
             }
-            if (type == 1) {
+            if (type == 2) {
                 text = qsTr("ON") + " " + range + "%"
             }
         }

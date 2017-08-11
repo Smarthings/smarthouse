@@ -105,7 +105,14 @@ QJsonObject TcpClient::addNode(QString node, QJsonObject node_list)
     QStringList keys = node_list.keys();
     obj.insert("name", node);
     for (const QString &key: keys) {
-        obj.insert(key, node_list.value(key).toString());
+        if (key == "range") {
+            int range = QString(node_list.value(key).toString()).toInt();
+            if (range > 1)
+                range++;
+            obj.insert(key, range);
+        } else {
+            obj.insert(key, node_list.value(key).toString());
+        }
     }
     return obj;
 }
@@ -117,9 +124,23 @@ bool TcpClient::findNodes(QString node, QJsonObject node_list)
         if (listNodes[i].toMap().take("name").toString() == node) {
             for (const QString &field: fields) {
                 if (node_list.contains(field)) {
-                    obj.insert(field, node_list.value(field).toString());
+                    if (field == "range") {
+                        int range = QString(node_list.value(field).toString()).toInt();
+                        if (range > 1)
+                            range++;
+                        obj.insert(field, range);
+                    } else {
+                        obj.insert(field, node_list.value(field).toString());
+                    }
                 } else if (listNodes[i].toMap().contains(field)) {
-                    obj.insert(field, listNodes[i].toMap().take(field).toString());
+                    if (field == "range") {
+                        int range = QString(listNodes[i].toMap().take(field).toString()).toInt();
+                        if (range > 1)
+                            range++;
+                        obj.insert(field, range);
+                    } else {
+                        obj.insert(field, listNodes[i].toMap().take(field).toString());
+                    }
                 }
             }
             listNodes.replace(i, obj.toVariantMap());
