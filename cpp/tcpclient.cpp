@@ -54,11 +54,9 @@ void TcpClient::readTcpData()
     if (parseError.error == 0) {
         for (const QJsonValue &json_objects: doc_tcp.array()) {
             for (const QString &key: json_objects.toObject().keys()) {
-                if (key == "Nodes") {
-                    getNodesFromServer(json_objects.toObject().value("Nodes").toObject());
-                }
-                if (key == "Stopwatch") {
-                    getStopwatchFromServer(json_objects.toObject().value("Stopwatch").toObject());
+                if (key == "Nodes" || key == "Stopwatch") {
+                    getNodesFromServer(json_objects.toObject().value(key).toObject());
+                    continue;
                 }
             }
         }
@@ -156,6 +154,9 @@ void TcpClient::getStopwatchFromServer(QJsonObject nodes)
 {
     QStringList nodes_list = nodes.keys();
     for (const QString &node: nodes_list) {
+        qDebug() << nodes;
+    }
+    /*for (const QString &node: nodes_list) {
         QJsonObject stopwatch, object;
         object.insert("range", nodes[node].toObject().value("action").toObject().value("range").toString());
         object.insert("start", nodes[node].toObject().value("timestamp").toObject().value("start").toInt());
@@ -169,5 +170,5 @@ void TcpClient::getStopwatchFromServer(QJsonObject nodes)
                                nodes[node].toObject().value("timestamp").toObject().value("end").toInt()
                             ));
         Q_EMIT stopwatchListChanged();
-    }
+    }*/
 }
