@@ -10,6 +10,7 @@ Item {
     property alias backgroundColor: rectangle_box.color
     property alias nodeName: text_name.text
     property alias nodeRange: text_range.text
+    property alias nodeNotification: item_notification //text_notification.text
     property string icon_type: "lamp"
     property alias nodeBlock: rectangle_box
 
@@ -60,6 +61,23 @@ Item {
                     anchors.top: column_footer.bottom
                     anchors.topMargin: 4
                     width: parent.width
+
+                    Item {
+                        id: item_notification
+                        width: parent.width /2
+                        height: 15
+
+                        /*Text {
+                            id: text_notification
+                            width: parent.width
+                            font.weight: Font.Light
+                            font.pixelSize: 10
+                            color: text_color
+                            opacity: 0.4
+                            anchors.left: parent.left
+                            anchors.leftMargin: 5
+                        }*/
+                    }
 
                     Item {
                         width: parent.width /2
