@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QList>
 #include <QVariant>
+#include <QDateTime>
 
 #include <qqmlengine.h>
 #include <qqmlcontext.h>
@@ -67,7 +68,6 @@ public slots:
     QJsonObject addNode(QString node, QJsonObject node_list);
     bool findNodes(QString node, QJsonObject node_list);
     void setSendCommandNode(QJsonObject node);
-    void getStopwatchFromServer(QJsonObject nodes);
     //void setSendCommandNode(QString node, QString action);
 
 private slots:

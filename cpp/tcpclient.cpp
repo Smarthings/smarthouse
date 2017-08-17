@@ -152,26 +152,3 @@
 
         writeTcpData(&node_array);
     }
-
-    void TcpClient::getStopwatchFromServer(QJsonObject nodes)
-    {
-        QStringList nodes_list = nodes.keys();
-        for (const QString &node: nodes_list) {
-            qDebug() << nodes;
-        }
-        /*for (const QString &node: nodes_list) {
-            QJsonObject stopwatch, object;
-            object.insert("range", nodes[node].toObject().value("action").toObject().value("range").toString());
-            object.insert("start", nodes[node].toObject().value("timestamp").toObject().value("start").toInt());
-            object.insert("end", nodes[node].toObject().value("timestamp").toObject().value("end").toInt());
-            stopwatch.insert("stopwatch", object);
-
-            m_stopwatch.append(new Stopwatch(
-                                   node,
-                                   nodes[node].toObject().value("action").toObject().value("range").toString(),
-                                   nodes[node].toObject().value("timestamp").toObject().value("start").toInt(),
-                                   nodes[node].toObject().value("timestamp").toObject().value("end").toInt()
-                                ));
-            Q_EMIT stopwatchListChanged();
-        }*/
-    }

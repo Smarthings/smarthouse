@@ -11,6 +11,8 @@ ScrollablePage {
     id: nodePage
 
     property int id
+    property int timestamp_end: (tcpClient.getNodes[id].end !== undefined && tcpClient.getNodes[id].end > 0)? tcpClient.getNodes[id].end : 0
+    property int range: tcpClient.getNodes[id].range
     property string icon_type: "lamp"
 
     ColumnLayout {
@@ -115,16 +117,26 @@ ScrollablePage {
                         height: smarttumblerstopwatch.height + 10
                         spacing: 5
 
-                        function timeChanged()
+                        property int time: 0
+                        function timeStopwatch()
                         {
-
+                            var get_time = functions.getTimeDifNow(tcpClient.getNodes[id].end);
+                            if (get_time < 0) {
+                                timer_stopwatch.running = false;
+                                return;
+                            }
+                            var str_time = new Date(get_time * 1000);
+                            smarttumblerstopwatch.setHours.currentIndex = str_time.getUTCHours();
+                            smarttumblerstopwatch.setMinutes.currentIndex = str_time.getUTCMinutes();
+                            smarttumblerstopwatch.setSeconds.currentIndex = str_time.getUTCSeconds();
                         }
 
                         Timer {
                             id: timer_stopwatch
                             interval: 1000
+                            repeat: true
                             running: false
-                            onTriggered: column_stopwatch.timeChanged()
+                            onTriggered: column_stopwatch.timeStopwatch()
                         }
 
                         SmartTumblerStopWatch {
@@ -300,6 +312,20 @@ ScrollablePage {
             enabled: (tcpClient.getNodes[id].type == 2)? true : false
             target: smartdial._dial
             onPressedChanged: getChangeDialNode();
+        }
+
+        Connections {
+            target: nodePage
+            onTimestamp_endChanged: timer_stopwatch.running = true;
+            onRangeChanged: {
+                smartdial.setValue = parseInt(range);
+                smartswitch.setValue = parseInt(range);
+            }
+        }
+        Component.onCompleted: {
+            if (timestamp_end > 0) {
+                timer_stopwatch.running = true
+            }
         }
     }
 

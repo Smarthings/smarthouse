@@ -7,14 +7,16 @@ SOURCES += main.cpp \
     cpp/statusbar.cpp \
     cpp/tcpclient.cpp \
     cpp/nodes.cpp \
-    cpp/stopwatch.cpp
+    cpp/stopwatch.cpp \
+    cpp/functionscpp.cpp
 
 HEADERS += \
     ./cpp/networkdiscovery.h \
     cpp/statusbar.h \
     cpp/tcpclient.h \
     cpp/nodes.h \
-    cpp/stopwatch.h
+    cpp/stopwatch.h \
+    cpp/functionscpp.h
 
 RESOURCES += qml.qrc
 

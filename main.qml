@@ -8,6 +8,7 @@ import Qt.labs.settings 1.0
 import StatusBar 0.1
 import NetworkDiscovery 1.0
 import TcpClient 1.0
+import FunctionsCPP 1.0
 
 import "ui/"
 import "ui/components/"
@@ -113,6 +114,10 @@ ApplicationWindow {
     FontLoader {
         id: smarthouse
         source: "./fonts/Smarthouse.ttf"
+    }
+
+    FunctionsCPP {
+        id: functions
     }
 
     FontLoader {

@@ -31,7 +31,7 @@ ScrollablePage {
 
                 nodeName: model.modelData.name
                 nodeRange: text_node(model.modelData.range, model.modelData.type)
-                backgroundColor: (model.modelData.range > 0)? Qt.rgba(Material.accent.r, Material.accent.g, Material.accent.b, 0.15) :
+                backgroundColor: (model.modelData.range > 0)? Qt.rgba(Material.accent.r, Material.accent.g, Material.accent.b, 0.05) :
                                                               background_nodes
                 nodeNotification.children: Item {
                     width: parent.width
@@ -40,9 +40,9 @@ ScrollablePage {
                     anchors.leftMargin: 5
 
                     SmartIcon {
-                        iconName: "clock"
+                        iconName: "alarm"
                         iconSize: 12
-                        visible: (model.modelData.end !== undefined && (model.modelData.end >= Math.floor(Date.now() / 1000)))? true : false
+                        visible: (model.modelData.end !== undefined && (functions.getTimeDifNow(model.modelData.end) > 0))? true : false
                     }
                 }
 
