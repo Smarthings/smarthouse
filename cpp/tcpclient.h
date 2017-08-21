@@ -9,6 +9,7 @@
 #include <QList>
 #include <QVariant>
 #include <QDateTime>
+#include <QTimer>
 
 #include <qqmlengine.h>
 #include <qqmlcontext.h>
@@ -76,6 +77,7 @@ private slots:
     void connected();
     void disconnected();
     void error();
+    void stopwatch();
 
 private:
     QString server_address() { return serverIp; }
@@ -111,7 +113,9 @@ private:
     QJsonObject sendcommand;
 
     QStringList fields = {"name", "range", "status", "type", "time"/*, "start", "end"*/, "to_range"};
-    //QByteArray sendCommandNode() { return ""; }
+
+    QTimer *timer = new QTimer(this);
+    QList<QJsonObject> list_stopwatch;
 };
 
 #endif // TCPCLIENT_H

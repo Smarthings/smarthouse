@@ -115,6 +115,15 @@
                             if (field == "range" && _double > 1)
                                 _double++;
                             obj.insert(field, _double);
+                            if (field == "time") {
+                                QJsonObject _node;
+                                _node.insert(node, obj);
+                                list_stopwatch.append(_node);
+                                connect(timer, SIGNAL(timeout()), this, SLOT(stopwatch()));
+                                if (!timer->isActive()) {
+                                    timer->start(1000);
+                                }
+                            }
                         } else if (node_list.value(field).type() == 3 || node_list.value(field).type() == 128) {
                             QString _string = node_list.value(field).toString();
                             obj.insert(field, _string);
@@ -160,4 +169,31 @@
         value.insert("time", node.at(0).toMap().value("time").toDouble());
 
         this->findNodes(_node, value);
+    }
+
+    void TcpClient::stopwatch()
+    {
+        for (quint8 i = 0; i < list_stopwatch.count(); i++) {
+            QStringList nodes = list_stopwatch.at(i).keys();
+            for (QString key: nodes) {
+                double time = list_stopwatch.at(i).value(key).toObject().value("time").toDouble();
+                if (time > 0) {
+                    double v_time = time -1;
+                    QJsonObject value, node;
+                    value.insert("time", v_time);
+                    node.insert(key, value);
+
+                    list_stopwatch.replace(i, node);
+                    qDebug() << node;
+                    this->findNodes(key, value);
+                    continue;
+                } else {
+                    list_stopwatch.removeAt(i);
+                }
+            }
+        }
+
+        if (list_stopwatch.count() == 0) {
+            timer->stop();
+        }
     }
