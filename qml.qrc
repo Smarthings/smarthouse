@@ -5,18 +5,12 @@
         <file>ui/SettingsPage.qml</file>
         <file>ui/ScrollablePage.qml</file>
         <file>ui/HeaderPage.qml</file>
-        <file>cpp/networkdiscovery.h</file>
-        <file>cpp/networkdiscovery.cpp</file>
         <file>ui/NoConnectionPage.qml</file>
         <file>ui/dialogs/DialogServerAddress.qml</file>
         <file>ui/dialogs/DialogServerPort.qml</file>
         <file>ui/dialogs/DialogTheme.qml</file>
         <file>ui/dialogs/DialogColorApp.qml</file>
         <file>ui/HomePage.qml</file>
-        <file>cpp/statusbar.cpp</file>
-        <file>cpp/statusbar.h</file>
-        <file>cpp/tcpclient.cpp</file>
-        <file>cpp/tcpclient.h</file>
         <file>ui/NodePage.qml</file>
         <file>fonts/fontawesome-webfont.ttf</file>
         <file>fonts/Smarthouse.ttf</file>
@@ -26,10 +20,6 @@
         <file>ui/components/SmartSwitch.qml</file>
         <file>ui/components/SmartDial.qml</file>
         <file>ui/components/SmartTumblerStopWatch.qml</file>
-        <file>cpp/nodes.cpp</file>
-        <file>cpp/nodes.h</file>
-        <file>cpp/stopwatch.cpp</file>
-        <file>cpp/stopwatch.h</file>
         <file>ui/components/SmartNode.qml</file>
         <file>ui/Node.qml</file>
     </qresource>

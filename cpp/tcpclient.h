@@ -33,7 +33,7 @@ class TcpClient : public QObject
 
     Q_PROPERTY(QStringList tcpStringList READ tcpStringList WRITE setTcpStringList NOTIFY tcpStringListChanged)
     Q_PROPERTY(QList<QObject*> nodesList READ nodesList WRITE setNodesList NOTIFY nodesListChanged)
-    Q_PROPERTY(QList<QVariant> getNodes READ getNodes NOTIFY getNodesChanged)
+    Q_PROPERTY(QList<QVariant> getNodes READ getNodes WRITE updateNodes NOTIFY getNodesChanged)
     Q_PROPERTY(QList<QObject*> stopwatchList READ stopwatchList NOTIFY stopwatchListChanged)
     Q_PROPERTY(QJsonObject sendCommandNode READ sendCommandNode WRITE setSendCommandNode NOTIFY sendCommandNodeChanged)
     //Q_PROPERTY(QByteArray sendCommandNode READ sendCommandNode WRITE setSendCommandNode NOTIFY sendCommandNodeChanged)
@@ -62,6 +62,7 @@ public slots:
     void setServer_port(int str) { serverPort = str; Q_EMIT server_portChanged(); }
     void setError_conn(QStringList str) { errorMsg.clear(); Q_EMIT error_connChanged(); }
     void setTcpStringList(QStringList str) { nodesAddress.clear(); Q_EMIT tcpStringListChanged(); }
+    void updateNodes(QList<QVariant> node);
 
     void setNodesList(QList<QObject*> str) { dataList.clear(); Q_EMIT nodesListChanged(); }
     void getNodesFromServer(QJsonObject nodes);
@@ -109,7 +110,7 @@ private:
     QJsonObject sendCommandNode() { return sendcommand; }
     QJsonObject sendcommand;
 
-    QStringList fields = {"name", "range", "status", "type", "start", "end", "to_range"};
+    QStringList fields = {"name", "range", "status", "type", "time"/*, "start", "end"*/, "to_range"};
     //QByteArray sendCommandNode() { return ""; }
 };
 

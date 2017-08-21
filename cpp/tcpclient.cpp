@@ -152,3 +152,12 @@
 
         writeTcpData(&node_array);
     }
+
+    void TcpClient::updateNodes(QList<QVariant> node)
+    {
+        QString _node = listNodes[node.at(0).toMap().value("id").toInt()].toMap().take("name").toString();
+        QJsonObject value;
+        value.insert("time", node.at(0).toMap().value("time").toDouble());
+
+        this->findNodes(_node, value);
+    }

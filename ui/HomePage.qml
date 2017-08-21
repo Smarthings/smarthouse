@@ -42,7 +42,7 @@ ScrollablePage {
                     SmartIcon {
                         iconName: "alarm"
                         iconSize: 12
-                        visible: (model.modelData.end !== undefined && (functions.getTimeDifNow(model.modelData.end) > 0))? true : false
+                        visible: (model.modelData.time !== undefined && model.modelData.time > 0)? true : false
                     }
                 }
 
