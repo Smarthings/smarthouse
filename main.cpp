@@ -4,8 +4,8 @@
 
 #include "./cpp/networkdiscovery.h"
 #include "./cpp/tcpclient.h"
+#include "./cpp/nodes.h"
 #include "./cpp/statusbar.h"
-#include "./cpp/functionscpp.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,7 +15,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<NetworkDiscovery>("NetworkDiscovery", 1, 0, "NetworkDiscovery");
     qmlRegisterType<TcpClient>("TcpClient", 1, 0, "TcpClient");
     qmlRegisterType<StatusBar>("StatusBar", 0, 1, "StatusBar");
-    qmlRegisterType<FunctionsCPP>("FunctionsCPP", 1, 0, "FunctionsCPP");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));

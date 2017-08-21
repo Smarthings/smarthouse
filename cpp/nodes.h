@@ -2,43 +2,37 @@
 #define NODES_H
 
 #include <QObject>
+#include <QList>
+#include <QVariant>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QTimer>
+#include <QDebug>
 
 class Nodes : public QObject
 {
     Q_OBJECT
-
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(QString status READ status WRITE setStatus NOTIFY statusChanged)
-    Q_PROPERTY(QString range READ range WRITE setRange NOTIFY rangeChanged)
-    Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(QList<QVariant> nodes READ nodes WRITE updateNode NOTIFY nodesChanged)
 
 public:
     Nodes(QObject *parent = 0);
-    Nodes(const QString &name, const QString &status, const QString &range, const QString &type, QObject *parent = 0);
 
-    QString name() const;
-    void setName(const QString &name);
+public slots:
+    void getNodesFromServer(QJsonObject nodes);
+    void updateNode(QList<QVariant> node);
+    bool findUpdateNode(QString node, QJsonObject node_list);
+    QList<QVariant> nodes() { return v_nodes; }
 
-    QString status() const;
-    void setStatus(const QString &status);
+Q_SIGNALS:
+    void nodesChanged();
 
-    QString range() const;
-    void setRange(const QString &range);
-
-    QString type() const;
-    void setType(const QString &type);
-
-signals:
-    void nameChanged();
-    void statusChanged();
-    void rangeChanged();
-    void typeChanged();
+protected:
+    QJsonObject addNode(QString node, QJsonObject node_list);
 
 private:
-    QString m_name;
-    QString m_status;
-    QString m_range;
-    QString m_type;
+    QList<QVariant> v_nodes;
+    QStringList fields = {"name", "range", "status", "type", "time"/*, "start", "end"*/, "to_range"};
 };
 
 #endif // NODES_H
