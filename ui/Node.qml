@@ -121,10 +121,6 @@ ScrollablePage {
                         property int time: 0
                         function timeStopwatch()
                         {
-                            //var get_time = functions.getTimeDifNow(tcpClient.getNodes[id].end);
-                            //time--;
-                            //tcpClient.getNodes = [{"id": id, "time": time}];
-
                             var str_time = new Date(time * 1000);
                             smarttumblerstopwatch.setHours.currentIndex = str_time.getUTCHours();
                             smarttumblerstopwatch.setMinutes.currentIndex = str_time.getUTCMinutes();
@@ -336,10 +332,6 @@ ScrollablePage {
                 column_stopwatch.time = stopwatch_time;
                 timer_stopwatch.running = true;
             }
-
-            /*if (timestamp_end > 0) {
-                timer_stopwatch.running = true
-            }*/
         }
     }
 

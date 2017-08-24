@@ -13,7 +13,6 @@ void TcpClient::startConnection()
     connect(tcpSocket, SIGNAL(connected()), this, SLOT(connected()));
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readTcpData()));
     connect(tcpSocket, SIGNAL(disconnected()), this, SLOT(disconnected()));
-
     connect(tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
 
     tcpSocket->connectToHost(this->serverIp, this->serverPort);
