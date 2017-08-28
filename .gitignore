@@ -3,3 +3,6 @@ img/.DS_Store
 Smarthouse.pro.user
 Smarthouse.pro.user.*
 tests/build*
+.qmake.stash
+Makefile
+
