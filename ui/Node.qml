@@ -15,6 +15,7 @@ ScrollablePage {
     //property int timestamp_end: (tcpClient.getNodes[id].end !== undefined && tcpClient.getNodes[id].end > 0)? tcpClient.getNodes[id].end : 0
     property int range: tcpClient.getNodes[id].range
     property string icon_type: "lamp"
+    property bool stopwatch_functions: false
 
     ColumnLayout {
         id: column_general
@@ -59,7 +60,7 @@ ScrollablePage {
                                     anchors.fill: parent
                                     hoverEnabled: true
                                     onClicked: {
-                                        item_stopwatch.visible = (item_stopwatch.visible == true)? false : true
+                                        stopwatch_functions = (item_stopwatch.visible == true)? false : true
                                     }
                                 }
                             }
@@ -103,7 +104,7 @@ ScrollablePage {
                 anchors.leftMargin: 10
                 anchors.right: parent.right
                 anchors.rightMargin: 10
-                visible: false
+                visible: stopwatch_functions
 
                 Rectangle {
                     anchors.fill: parent
@@ -272,7 +273,7 @@ ScrollablePage {
                 anchors.right: parent.right
                 anchors.leftMargin: 10
                 anchors.rightMargin: 10
-                visible: item_stopwatch.visible
+                visible: stopwatch_functions
 
                 Button {
                     id: button_stopwatch
@@ -329,6 +330,7 @@ ScrollablePage {
         }
         Component.onCompleted: {
             if (stopwatch_time > 0) {
+                stopwatch_functions = true;
                 column_stopwatch.time = stopwatch_time;
                 timer_stopwatch.running = true;
             }

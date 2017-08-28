@@ -117,7 +117,6 @@ void Nodes::Stopwatch()
                 QJsonObject value;
                 double val = v_node.toMap().take("time").toDouble() -1;
                 value.insert("time", val);
-                qDebug() << value;
                 updateTime(node, value);
                 Q_EMIT nodesChanged();
                 if (val == 0) {
