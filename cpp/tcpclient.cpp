@@ -46,21 +46,23 @@ void TcpClient::writeTcpData(QJsonArray *json)
 void TcpClient::readTcpData()
 {
     tcpSocket->flush();
-    QByteArray data = tcpSocket->readAll();
-    QJsonParseError parseError;
-    QJsonDocument doc_tcp = QJsonDocument::fromJson(data, &parseError);
+    while (tcpSocket->canReadLine()) {
+        QByteArray data = tcpSocket->readLine();
+        QJsonParseError parseError;
+        QJsonDocument doc_tcp = QJsonDocument::fromJson(data, &parseError);
 
-    if (parseError.error == 0) {
-        for (const QJsonValue &json_objects: doc_tcp.array()) {
-            for (const QString &key: json_objects.toObject().keys()) {
-                if (key == "Nodes" || key == "Stopwatch") {
-                    _Nodes->getNodesFromServer(json_objects.toObject().value(key).toObject());
-                    continue;
+        if (parseError.error == 0) {
+            for (const QJsonValue &json_objects: doc_tcp.array()) {
+                for (const QString &key: json_objects.toObject().keys()) {
+                    if (key == "Nodes" || key == "Stopwatch") {
+                        _Nodes->getNodesFromServer(json_objects.toObject().value(key).toObject());
+                        continue;
+                    }
                 }
             }
+        } else {
+            qDebug() << "Error JSON parse" << parseError.error;
         }
-    } else {
-        qDebug() << "Error JSON parse" << parseError.error;
     }
 }
 
