@@ -31,6 +31,10 @@ ScrollablePage {
                 anchors.leftMargin: 10
             }
 
+            Switch {
+
+            }
+
             Item {
                 width: parent.width
                 height: 5
