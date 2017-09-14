@@ -9,6 +9,10 @@ void TcpClient::startConnection()
 {
     if(status_connecting == true)
         return;
+
+    v_busy = true;
+    busyChanged();
+
     tcpSocket = new QTcpSocket(this);
     connect(tcpSocket, SIGNAL(connected()), this, SLOT(connected()));
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(readTcpData()));
@@ -25,6 +29,8 @@ void TcpClient::disconnect()
 
 void TcpClient::connected()
 {
+    v_busy = false;
+    Q_EMIT busyChanged();
     status_connecting = true;
     Q_EMIT status_connChanged();
 }
@@ -61,16 +67,20 @@ void TcpClient::readTcpData()
                 }
             }
         } else {
-            qDebug() << "Error JSON parse" << parseError.error;
+            errorMsg.append(QString("Error JSON parse: %1").arg(parseError.error));
+            get_errorChanged();
         }
     }
 }
 
 void TcpClient::error()
 {
+    if (v_busy == true) {
+        v_busy = false;
+        busyChanged();
+    }
     errorMsg.append(tcpSocket->errorString());
-    qDebug() << tcpSocket->errorString();
-    Q_EMIT error_connChanged();
+    get_errorChanged();
 }
 
 void TcpClient::setSendCommandNode(QJsonObject node)

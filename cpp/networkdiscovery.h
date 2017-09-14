@@ -8,7 +8,7 @@
 class NetworkDiscovery : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString netDiscovery READ netDiscovery WRITE setNetDiscovery NOTIFY netDiscoveryChanged)
+    /*Q_PROPERTY(QString netDiscovery READ netDiscovery WRITE setNetDiscovery NOTIFY netDiscoveryChanged)*/
     Q_PROPERTY(QStringList serverDiscovery READ serverDiscovery WRITE setServerDiscovery NOTIFY serverDiscoveryChanged)
     Q_PROPERTY(bool update_status READ update_status NOTIFY update_statusChanged)
     Q_PROPERTY(int countServers READ countServers NOTIFY countServersChanged)
@@ -16,7 +16,6 @@ class NetworkDiscovery : public QObject
 public:
     explicit NetworkDiscovery(QObject *parent = 0);
     ~NetworkDiscovery() {}
-
 
 Q_SIGNALS:
     void netDiscoveryChanged();

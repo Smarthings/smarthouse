@@ -21,19 +21,21 @@ Item {
             implicitHeight: 250
 
             Column {
-                width: parent.width
+                anchors.fill: parent
                 spacing: 10
-                //padding: 10
+
                 Button {
                     id: button_network_discovery
                     text: qsTr("Descoberta de rede")
                     font.weight: Font.Light
                     width: parent.width
+                    height: implicitHeight
                     Material.background: button_primary_color
                     Material.foreground: button_foreground_color
 
                     onClicked: {
-                        networkDiscovery.SearchSmarthingsServer()
+                        object.message = "Procurar Central";
+                        networkDiscovery.SearchSmarthingsServer();
                     }
                 }
 
@@ -51,14 +53,11 @@ Item {
                     font.weight: Font.Light
                     width: parent.width
                     onClicked: {
-                        if (radio_settings_manual.checked == true)
-                        {
+                        if (radio_settings_manual.checked == true) {
                             button_network_discovery.enabled = false
                             combobox_server_address.enabled = false
                             textfield_server_addr.visible = true
-                        }
-                        else
-                        {
+                        } else {
                             button_network_discovery.enabled = true
                             combobox_server_address.enabled = true
                             textfield_server_addr.visible = false

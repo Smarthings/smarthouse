@@ -39,7 +39,12 @@ ApplicationWindow {
     property color light_background_nodes:  "#ffffff"
 
     property bool isConnect: tcpClient.status_conn
-    property int numberMessage: tcpClient.error_conn.length
+
+    QtObject {
+        id: object
+        property bool busy: false;
+        property string message: ""
+    }
 
     Settings {
         id: settings
@@ -95,11 +100,66 @@ ApplicationWindow {
         color: colorChoose
     }
 
-    header: HeaderPage {}
+    header: (isConnect)? main_header : false_header
+
+    Rectangle {
+        id: false_header
+        width: window.width
+        height: 60
+        color: "transparent"
+    }
+
+    HeaderPage {
+        id: main_header
+    }
+
     StackView {
         id: stackView
         anchors.fill: parent
         initialItem: HomePage {}
+    }
+
+    Rectangle {
+        visible: object.busy
+        anchors.fill: parent
+        color: Qt.rgba(0, 0, 0, 0.8)
+        anchors.top: parent.top
+        anchors.topMargin: -header.height
+
+        BusyIndicator {
+            id: busy_indicator
+            anchors.centerIn: parent
+        }
+        Text {
+            width: parent.width
+            anchors.top: busy_indicator.bottom
+            horizontalAlignment: Text.AlignHCenter
+
+            color: "#fff"
+            text: qsTr("aguarde...");
+        }
+
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        z: 4
+    }
+
+    ToolTip {
+        id: message
+        timeout: 3000
+        topMargin: parent.height
+        text: object.message
+        z: 100
+    }
+
+    Connections {
+        target: object
+        onMessageChanged: {
+            if (object.message !== "")
+                message.visible = true;
+        }
     }
 
     NetworkDiscovery {
@@ -108,6 +168,15 @@ ApplicationWindow {
 
     TcpClient {
         id: tcpClient
+
+        onGet_errorChanged: {
+            object.message = "";
+            object.message = get_error;
+        }
+
+        onBusyChanged: {
+            object.busy = busy
+        }
     }
 
     FontLoader {
@@ -151,12 +220,9 @@ ApplicationWindow {
     {
         if(isConnect == false) {
             stackView.push("qrc:/ui/NoConnectionPage.qml")
-            header.visible = false
         } else {
             stackView.pop()
-            header.visible = true
         }
-        //console.log(tcpClient.error_conn.length)
     }
 
     function checkSizeWidth()

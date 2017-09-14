@@ -28,10 +28,11 @@ class TcpClient : public QObject
     Q_PROPERTY(QString server_address READ server_address WRITE setServer_address NOTIFY server_addressChanged)
     Q_PROPERTY(int server_port READ server_port WRITE setServer_port NOTIFY server_portChanged)
     Q_PROPERTY(bool status_conn READ status_conn NOTIFY status_connChanged)
-    Q_PROPERTY(QStringList error_conn READ error_conn NOTIFY error_connChanged)
+    Q_PROPERTY(QString get_error READ get_error NOTIFY get_errorChanged)
 
     Q_PROPERTY(QList<QVariant> getNodes READ getNodes WRITE updateNodes NOTIFY getNodesChanged)
     Q_PROPERTY(QJsonObject sendCommandNode READ sendCommandNode WRITE setSendCommandNode NOTIFY sendCommandNodeChanged)
+    Q_PROPERTY(bool busy READ busy WRITE setBusy NOTIFY busyChanged)
 
 public:
     explicit TcpClient(QObject *parent = 0);
@@ -40,10 +41,11 @@ Q_SIGNALS:
     void server_addressChanged();
     void server_portChanged();
     void status_connChanged();
-    void error_connChanged();
     void nodesUpdateChanged();
     void sendCommandNodeChanged();
     void getNodesChanged();
+    void busyChanged();
+    void get_errorChanged();
 
 signals:
     void getNodesServer(QJsonObject nodes);
@@ -57,6 +59,7 @@ public slots:
     void setServer_port(int str) { serverPort = str; Q_EMIT server_portChanged(); }
     void updateNodes(QList<QVariant> node);
     void setSendCommandNode(QJsonObject node);
+    void setBusy(bool g_busy) { v_busy = g_busy; Q_EMIT busyChanged(); }
 
 private slots:
     void readTcpData();
@@ -75,8 +78,8 @@ private:
     bool status_conn() { return status_connecting; }
     bool status_connecting = false;
 
-    QStringList error_conn() { return errorMsg; }
     QStringList errorMsg;
+    QString get_error() { return errorMsg.last(); }
 
     QTcpSocket *tcpSocket;
 
@@ -95,6 +98,9 @@ private:
     QList<QJsonObject> list_stopwatch;
 
     Nodes *_Nodes = new Nodes(this);
+
+    bool busy() { return v_busy; }
+    bool v_busy = false;
 };
 
 #endif // TCPCLIENT_H

@@ -9,7 +9,7 @@ Rectangle {
     id: root
     property string title_page: ""
 
-    width: parent.width
+    width: window.width
     height: 60
     color: colorChoose
 

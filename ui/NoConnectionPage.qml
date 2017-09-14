@@ -12,12 +12,9 @@ ScrollablePage {
     ColumnLayout {
         id: column_root
         anchors.fill: parent
+        anchors.top: parent.top
+        anchors.topMargin: -40
         spacing: 20
-
-        Item {
-            width: parent.width
-            height: 10
-        }
 
         Row {
             width: parent.width
@@ -37,13 +34,6 @@ ScrollablePage {
                 itemHeight: 96
                 iconColor: Material.color(Material.Red)
             }
-
-            /*Image {
-                id: image_connectionless
-                source: "../img/noconnection.png"
-                width: 96
-                height: 96
-            }*/
 
             SmartIcon {
                 id: image_smarthouse
@@ -196,63 +186,6 @@ ScrollablePage {
                     width: parent.width
                     height: 20
                 }
-
-                Item {
-                    width: parent.width
-                    height: 70
-
-                    Rectangle {
-                        id: rectangle_server_messages
-                        width: parent.width
-                        height: parent.height
-                        color: "transparent"
-
-                        ScrollBar {
-                            id: vbar
-                            hoverEnabled: true
-                            active: hovered || pressed
-                            orientation: Qt.Vertical
-                            size: rectangle_server_messages.height / listView_messages.height
-                            anchors.top: parent.top
-                            anchors.right: parent.right
-                            anchors.bottom: parent.bottom
-                        }
-
-                        ScrollBar {
-                                id: hbar
-                                hoverEnabled: true
-                                active: hovered || pressed
-                                orientation: Qt.Horizontal
-                                size: rectangle_server_messages.width / listView_messages.width
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-                                anchors.bottom: parent.bottom
-                            }
-
-                        ListView {
-                            id: listView_messages
-                            anchors.fill: parent
-                            model: model_messages
-                            delegate: delegate_messages
-                        }
-                        Component {
-                            id: delegate_messages
-                            Column {
-                                width: parent.width
-                                padding: 5
-                                Text {
-                                    text: message
-                                    color: text_color
-                                    font.weight: Font.Light
-                                }
-                            }
-                        }
-
-                        ListModel {
-                            id: model_messages
-                        }
-                    }
-                }
             }
         }
         DialogServerAddress {
@@ -261,23 +194,5 @@ ScrollablePage {
         DialogServerPort {
             id: dialog_server_port
         }
-
-        Connections {
-            target: window
-
-            onNumberMessageChanged: {
-                loadMessages();
-            }
-        }
-
-        Component.onCompleted: {
-            loadMessages();
-        }
-    }
-    function loadMessages()
-    {
-        model_messages.clear()
-        for(var i = tcpClient.error_conn.length -1; i >= 0; i--)
-            model_messages.append({'message': tcpClient.error_conn[i]})
     }
 }
