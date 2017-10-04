@@ -38,9 +38,8 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.6
-import QtQuick.Controls 2.0
-import QtGraphicalEffects 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 
 Page {
     id: page
