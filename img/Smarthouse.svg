@@ -31,8 +31,8 @@
     </rdf:RDF>
   </metadata>
   <sodipodi:namedview
-     inkscape:window-height="719"
-     inkscape:window-width="1366"
+     inkscape:window-height="717"
+     inkscape:window-width="1360"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -43,10 +43,10 @@
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:zoom="0.5"
-     inkscape:cx="-13196.956"
+     inkscape:cx="-13706.956"
      inkscape:cy="-901.54025"
      inkscape:window-x="0"
-     inkscape:window-y="20"
+     inkscape:window-y="22"
      inkscape:current-layer="svg5496"
      inkscape:window-maximized="1"
      inkscape:snap-bbox="false"
@@ -1680,7 +1680,8 @@
   <g
      id="g4498"
      inkscape:export-xdpi="90"
-     inkscape:export-ydpi="90">
+     inkscape:export-ydpi="90"
+     transform="matrix(2,0,0,2,12965.943,-2245.5901)">
     <rect
        y="1597.5901"
        x="-13655.943"
