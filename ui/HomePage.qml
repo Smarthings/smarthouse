@@ -7,6 +7,7 @@ import "./components/"
 
 ScrollablePage {
     id: homePage
+    fillWidth: true
 
     Rectangle {
         id: rectangle_root
