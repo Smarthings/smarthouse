@@ -45,9 +45,13 @@ Page {
     id: page
 
     default property alias content: pane.contentItem
+    property bool fillWidth: false
 
     Flickable {
-        anchors.fill: parent
+        width: (fillWidth)? parent.width : (window.width > 500)? 500 : parent.width
+        x: (fillWidth)? 0 : (window.width - width) /2
+        height: parent.height
+
         contentHeight: pane.implicitHeight
         flickableDirection: Flickable.AutoFlickIfNeeded
 

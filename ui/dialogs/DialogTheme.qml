@@ -41,15 +41,6 @@ Item {
                         color: line_color
                         anchors.bottom: parent.bottom
                     }
-                    DropShadow {
-                        anchors.fill: line_border
-                        horizontalOffset: 1
-                        verticalOffset: 1
-                        radius: 2.0
-                        samples: 17
-                        color: shadow_color
-                        source: line_border
-                    }
                 }
             }
         }
